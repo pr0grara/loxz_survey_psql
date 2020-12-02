@@ -29,5 +29,5 @@ module.exports = {
       filename: './index.html'
     })
   ],
-  stats: "minimal"
+  // stats: "minimal"
 };

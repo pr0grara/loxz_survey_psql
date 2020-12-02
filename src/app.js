@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Survey from './components/survey.jsx';
 
 const App = () => {
 
@@ -25,10 +26,13 @@ const App = () => {
   }, [])
 
   return (
-    <div>
-      <p>{message}</p>
-      <input type="submit" onSubmit={callBackendAPI}></input>
-    </div>
+    <>
+      <div>
+        <p>{message}</p>
+        <Survey />
+        <input type="submit"></input>
+      </div>
+    </>
   )
 }
 
