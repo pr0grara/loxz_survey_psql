@@ -11,20 +11,23 @@ class Survey extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    document.querySelector('div[id="survey"]').remove()
-    console.log('bitch')
+    var openAnswers = document.querySelectorAll('input[class="answer"]')
+    var binaryAnswers = document.querySelectorAll('input[type="radio"]')
+    openAnswers.forEach(answer => console.log(answer.value))
+    binaryAnswers.forEach(answer => answer.checked? console.log(answer.name + answer.value) : "")
+    // document.querySelector('div[id="survey"]').remove()
   }
 
   render() {
     return (
-      <div id="survey" className="survey" onClick={this.handleSubmit}>
+      <div id="survey" className="survey">
         <div className="survey-question">
           <label className="label">What does your organization hope to gain by adopting ML?</label>
-          <input type="text"/> 
+          <input type="text" className="answer"/> 
         </div>
         <div className="survey-question">
           <label className="label">What types of data are you currently collecting?</label>
-          <input type="text"/> 
+          <input type="text" className="answer"/> 
         </div>
         <div className="survey-question">
           <label className="label">Do you have at least one data scientist on your team?</label>
@@ -56,11 +59,11 @@ class Survey extends React.Component {
         </div>
         <div className="survey-question">
           <label className="label">What do you consider your biggest bottleneck to your AI/ML objectives?</label>
-          <input type="text"/> 
+          <input type="text" className="answer"/> 
         </div>
         <div className="survey-question">
           <label className="label">Who do you plan to roll out the AI/ML project to?</label>
-          <input type="text"/> 
+          <input type="text" className="answer"/> 
         </div>
         <div className="survey-question">
           <label className="label">Have you formulated a problem statement?</label>
@@ -69,6 +72,7 @@ class Survey extends React.Component {
           <input type="radio" name="problem-state?" value="no" />
           <label>no</label>
         </div>
+        <input type="submit" onClick={this.handleSubmit}></input>
       </div>
     )
   }

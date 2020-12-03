@@ -30,7 +30,6 @@ const App = () => {
       <div>
         <p>{message}</p>
         <Survey />
-        <input type="submit"></input>
       </div>
     </>
   )
