@@ -2,10 +2,10 @@ const path = require("path");
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: ["@babel/polyfill", path.resolve(__dirname, "src/index")],
+  entry: ["@babel/polyfill", path.resolve(__dirname, "frontend/src/index.js")],
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js"
+    path: path.resolve(__dirname, "frontend", "dist"),
+    filename: "bundle.js",
   },
   mode: "development",
   module: {
@@ -13,21 +13,25 @@ module.exports = {
       {
         test: /\.jsx?/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
-      }
-    ]
+        loader: "babel-loader",
+      },
+    ],
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'dist'),
+    contentBase: path.resolve(__dirname, "dist"),
     port: 9000,
-    proxy: { '/api/**': { target: 'http://localhost:3001', secure: false } }
+    proxy: { "/api/**": { target: "http://localhost:3001", secure: false } },
   },
-  devtool: 'inline-source-map',
+  devtool: "inline-source-map",
   plugins: [
     new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, 'src', 'index.html'),
-      filename: './index.html'
-    })
+      template: path.resolve(__dirname, "frontend", "src", "index.html"),
+      filename: "./index.html",
+    }),
   ],
+  node: {
+    child_process: "empty",
+    fs: "empty", // if unable to resolve "fs"
+  },
   // stats: "minimal"
 };

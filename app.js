@@ -1,6 +1,10 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require('express');
+const bodyParser = require('body-parser');
+const answers = require('./routes/api/answers');
+const results = require('./routes/api/results');
+const path = require('path');
 // const React = require("react");
 // const ReactDOM = require("react-dom");
 // const App = ("./src/loxz-app.js");
@@ -18,8 +22,12 @@ mongoose.connect(
   console.log("connected to MongoDB")
 );
 
-app.get('/', (req, res) => {
-  res.send('frontend')
-})
+app.get("/", (req, res) => {
+  app.use(express.static('frontend/dist'))
+  res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+});
 
-app.listen(9001)
+app.use('/api/answers', answers);
+app.use('/api/results', results);
+
+app.listen(9000)
