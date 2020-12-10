@@ -6,20 +6,21 @@ const linkedEntityRecognition = require("./resources/linked_entity_recognition.j
 const entityRecognition = require("./resources/entity_recognition.js");
 const sentimentAnalysis = require("./resources/sentiment_analysis.js");
 
-const {
-  TextAnalyticsClient,
-  AzureKeyCredential,
-} = require("@azure/ai-text-analytics");
+// console.log(process.env);
+async function analyze(credentials, text) {
+  const {
+    TextAnalyticsClient,
+    AzureKeyCredential,
+  } = require("@azure/ai-text-analytics");
 
-const key = process.env.TEXT_ANALYSIS_KEY_1;
-const endpoint = process.env.ENDPOINT;
+  const [ key, endpoint ] = [credentials.key, credentials.endpoint]
 
-const textAnalyticsClient = new TextAnalyticsClient(
-  endpoint,
-  new AzureKeyCredential(key)
-);
 
-async function analyze(text) {
+  const textAnalyticsClient = new TextAnalyticsClient(
+    endpoint,
+    new AzureKeyCredential(key)
+  );
+
   var aiAnalysis = {};
   // aiAnalysis["sentiment"] = await sentimentAnalysis(textAnalyticsClient, text);
   // await entityRecognition(textAnalyticsClient, text);
@@ -29,6 +30,6 @@ async function analyze(text) {
   return aiAnalysis;
 }
 
-run(["hello world marketing salesforce crm return on investment roi"])
+// run(["hello world marketing salesforce crm return on investment roi"])
 
 module.exports = analyze;

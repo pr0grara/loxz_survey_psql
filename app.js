@@ -30,4 +30,5 @@ app.get("/", (req, res) => {
 app.use('/api/answers', answers);
 app.use('/api/results', results);
 
-app.listen(9000)
+var port = process.env.PORT || 9000
+app.listen(port, () => console.log(`Server running on port ${port}`))

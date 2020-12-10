@@ -19,13 +19,13 @@ module.exports = {
   },
   devServer: {
     contentBase: path.resolve(__dirname, "dist"),
-    port: 9000,
-    proxy: { "/api/**": { target: "http://localhost:3001", secure: false } },
+    port: 3000,
+    proxy: { "/api/**": { target: "http://localhost:9000", secure: false } },
   },
   devtool: "inline-source-map",
   plugins: [
     new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, "frontend", "src", "index.html"),
+      template: path.resolve(__dirname, "frontend", "public", "index.html"),
       filename: "./index.html",
     }),
   ],
