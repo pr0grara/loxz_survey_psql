@@ -10,11 +10,7 @@ class Welcome extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.result = this.result.bind(this);
   }
-
-  // componentDidMount() {
-  //   this.result()
-  // }
-
+  
   handleSubmit(e) {
     e.preventDefault();
   }
