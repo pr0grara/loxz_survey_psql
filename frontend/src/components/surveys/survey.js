@@ -145,14 +145,19 @@ class Survey extends React.Component {
             <label>yes</label>
             <input type="radio" className="answer" name="budget?" value="no" />
             <label>no</label>
-          </div>          
+          </div>
         </div>
         <div className="survey-question">
           <label className="label">
             Do you have tools/frameworks in place to initiate your AI objective?
           </label>
           <div>
-            <input type="radio" className="answer" name="tools-ai" value="yes" />
+            <input
+              type="radio"
+              className="answer"
+              name="tools-ai"
+              value="yes"
+            />
             <label>yes</label>
             <input type="radio" className="answer" name="tools-ai" value="no" />
             <label>no</label>
@@ -216,6 +221,7 @@ class Survey extends React.Component {
           className="submit"
           onClick={this.handleSubmit}
         ></input>
+        <footer>Ara Baghdassarian 12/11/2020</footer>
       </div>
     );
   }

@@ -27,7 +27,8 @@ class Welcome extends React.Component {
           <ul className="survey-result-data">
             <li className="survey-result-question" key={"Q"+idx.toString()}>Question: {answer.question}</li>
             <li className="survey-result-answer" key={"A"+idx.toString()}>Answer: {answer.content}</li>
-            <li className="survey-result-analysis" key={"K"+idx.toString()}>Key Phrase(s): {answer.analysis === "" ? "n/a" : answer.analysis.join(', ')}</li>
+            <label key={"L"+idx}>Azure Key Phrase(s):</label>
+            <li className="survey-result-analysis" key={"K"+idx.toString()}>{answer.analysis === "" ? "" : answer.analysis.join(', ')}</li>
           </ul>
         </div>
       )
