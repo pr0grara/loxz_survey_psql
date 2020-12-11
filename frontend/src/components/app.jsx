@@ -8,11 +8,11 @@ import Welcome from "./welcome/welcome";
 const App = () => {
   return (
     <div>
+      <Route exact path='/' component={Welcome} />
       <Switch>
         <Route exact path='/survey' component={Survey} />
         <Route exact path='/survey/results' component={ResultsContainer} />
       </Switch>
-      <Route exact path='/' component={Welcome} />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Root from './components/root.jsx';
+import Root from './root.jsx';
 import jwt_decode from "jwt-decode";
 import configureStore from "./store/store";
 
