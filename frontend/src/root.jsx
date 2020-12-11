@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 import axios from "axios"
-import App from './components/app'
+import App from './components/app.jsx'
 
 
 const Root = ({ store }) => {
