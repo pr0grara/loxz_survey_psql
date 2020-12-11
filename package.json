@@ -8,8 +8,8 @@
     "npm": "6.14.8"
   },
   "scripts": {
-    "mongo": "node app.js",
-    "start": "webpack-dev-server --mode development",
+    "start": "node app.js",
+    "startButNotReally": "webpack-dev-server --mode development",
     "watch": "webpack -w",
     "backend": "cd server && node server.js",
     "dev": "concurrently \"npm run mongo\" \"npm run start --prefix frontend\"",
