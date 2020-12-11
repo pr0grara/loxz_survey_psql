@@ -96,7 +96,8 @@ class Survey extends React.Component {
     });
     axios.post("/api/results/new", newResult); //hits routes/api/results.js backend
     localStorage.setItem("surveyNo", surveyNo)
-    window.location.assign(window.location.href + "/results")
+    this.props.loadResults(surveyNo);
+    // window.location.assign(window.location.href + "/results")
   }
 
   render() {

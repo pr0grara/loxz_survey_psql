@@ -8,10 +8,15 @@ export const receiveResult = (result) => ({
 });
 
 export const gatherResult = (id) => {
+  // debugger
   return APIUtil.getResult(id)
     .then((result) => {
       // console.log(result.data)
-      localStorage.setItem("result", JSON.stringify(result.data.answers))
+      // debugger
+      if (result.data) {
+        localStorage.setItem("result", JSON.stringify(result.data.answers));
+      }
+      window.location.assign(window.location.href + "/results")
       // dispatch(receiveResult(result))
     })
     .catch((err) => console.log(err));
