@@ -6,13 +6,47 @@ ul {
   list-style-type: none;
 }
 
+.header {
+  font-size: 40px;
+  margin: 20px;
+}
+
+footer {
+  position: absolute;
+  left: 40%;
+  bottom: 10px;
+}
+
+.paragraph {
+  font-size: 20px;
+  margin: 20px;
+}
+
+.paragraph-small {
+  font-size: 17px;
+  margin: 10px;
+}
+
 .survey-result {
   display: flex;
   flex-direction: column;
 }
 
-h1 {
-  margin-left: 2rem;
+.instructions {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+#welcome-page {
+  width: 700px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 20px #8792b4;  
+  background-color: whitesmoke;
 }
 
 .survey {
