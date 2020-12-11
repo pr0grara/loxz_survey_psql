@@ -1,0 +1,84 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.survey-result {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  margin-left: 2rem;
+}
+
+.survey {
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  margin: auto;
+  margin-top: 2rem;
+  background: whitesmoke;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 20px #2b59ed;  
+}
+
+.submit {
+  background: #2b59ed;
+  height: 37px;
+  width: 150px;
+  font-family: sans-serif;
+  border-radius: 4px;
+  border: none;
+  margin: auto;
+  margin-top: 20px;
+  color: white;
+  font-size: 20px;
+  box-shadow: 0 1px 5px #2b59ed;  
+}
+
+.survey-question {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px #2b59ed;
+}
+
+.survey-question > :first-child {
+  margin-right: 15px;
+}
+
+textarea {
+  width: 500px;
+  height: 40px;
+  margin: auto;
+}
+
+#results {
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  margin: auto;
+  margin-top: 2rem;
+  background: whitesmoke;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 20px #2b59ed;  
+}
+
+.survey-result {
+  display: flex;
+  flex-direction: row;
+}
+
+.survey-result label {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+

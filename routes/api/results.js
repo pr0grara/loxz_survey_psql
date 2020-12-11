@@ -9,6 +9,15 @@ router.get("/test", (req, res) => {
   res.json({ msg: "This is results route" });
 });
 
+router.get("/data/:result_no", (req, res) => {
+  // console.log(req.params)
+  // res.json(req.params)
+  var num = req.params.result_no;
+  Result.findOne({ number: num })
+    .then(result => res.json(result))
+    .catch(err => console.log(err))
+});
+
 router.post("/new", jsonParser, (req, res) => {
   // console.log(req.body);
   const [number, user, answers] = [
