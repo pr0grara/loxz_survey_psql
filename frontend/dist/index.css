@@ -75,6 +75,28 @@ footer {
   box-shadow: 0 1px 5px #2b59ed;  
 }
 
+.submit:hover {
+  cursor: pointer;
+}
+
+#loading {
+  opacity:0.8;
+  background-color:#0e111f;
+  position:fixed;
+  width:100%;
+  height:100%;
+  top:0px;
+  left:0px;
+  z-index:1000;
+}
+
+#loading > img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20%;
+}
+
 .survey-question {
   display: flex;
   justify-content: space-between;
@@ -117,6 +139,5 @@ textarea {
 }
 
 .survey-result-analysis {
-  color: #4a74ff;
+  color: #6881d3;
 }
-

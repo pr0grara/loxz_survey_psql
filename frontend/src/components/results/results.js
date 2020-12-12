@@ -10,32 +10,40 @@ class Welcome extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.result = this.result.bind(this);
   }
-  
+
+  componentDidMount() {
+    document.querySelector("#loading").remove();
+  }
+
   handleSubmit(e) {
     e.preventDefault();
   }
 
   result() {
     // this.props.gatherResult(this.props.resultNo)
-    var answers = JSON.parse(localStorage.result)
+    var answers = JSON.parse(localStorage.result);
     // console.log(answers)
     answers = answers.map((answer, idx) => {
       // console.log("Q" + idx.toString())
       return (
         <div className="survey-result" key={"Result" + idx}>
-          <label>{idx+1}</label>
+          <label>{idx + 1}</label>
           <ul className="survey-result-data">
-            <li className="survey-result-question" key={"Q"+idx.toString()}>Question: {answer.question}</li>
-            <li className="survey-result-answer" key={"A"+idx.toString()}>Answer: {answer.content}</li>
-            <label key={"L"+idx}>Azure Key Phrase(s):</label>
-            <li className="survey-result-analysis" key={"K"+idx.toString()}>{answer.analysis === "" ? "" : answer.analysis.join(', ')}</li>
+            <li className="survey-result-question" key={"Q" + idx.toString()}>
+              Question: {answer.question}
+            </li>
+            <li className="survey-result-answer" key={"A" + idx.toString()}>
+              Answer: {answer.content}
+            </li>
+            <label key={"L" + idx}>Azure Key Phrase(s):</label>
+            <li className="survey-result-analysis" key={"K" + idx.toString()}>
+              {answer.analysis === "" ? "" : answer.analysis.join(", ")}
+            </li>
           </ul>
         </div>
-      )
-  })
-    return(
-      answers
-    )
+      );
+    });
+    return answers;
   }
 
   render() {

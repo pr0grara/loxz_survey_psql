@@ -12,7 +12,7 @@ export const gatherResult = (id) => {
   return APIUtil.getResult(id)
     .then((result) => {
       // console.log(result.data)
-      debugger
+      // debugger
       if (result.data) {
         localStorage.setItem("result", JSON.stringify(result.data.answers));
       }

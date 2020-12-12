@@ -36,6 +36,7 @@ class Survey extends React.Component {
 
   async handleSubmit(e) {
     e.preventDefault();
+
     var surveyNo = (await axios.get("/api/results/count")).data.length; // hits routes/api/results.js backend
     console.log(surveyNo);
 
@@ -66,6 +67,16 @@ class Survey extends React.Component {
       alert("please fill 'em all out 😉");
       return;
     }
+
+    var loading = document.createElement("a");
+    loading.id = "loading";
+    loading.href = "http://www.lowgif.com/f923243801ca43a0.html";
+    loading.target = "_blank";
+    var img = document.createElement("img");
+    img.src =
+      "http://cdn.lowgif.com/full/f923243801ca43a0-15-latest-and-best-loading-animations-to-make-user-enjoy-waiting.gif";
+    loading.appendChild(img);
+    document.querySelector("body").appendChild(loading);
 
     await this.analyzer(answers);
     console.log(`this is analyzed: ${this.analyzed}`)
