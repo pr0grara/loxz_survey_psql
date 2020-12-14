@@ -48,7 +48,7 @@ class Welcome extends React.Component {
           <div className="paragraph-small">
             Note the lag you experience between "submit" and "results". This is due to each open ended answer being analyzed by Azure's Key Phrase Extraction API. In the future as we use more of their API's (not just key extract) and we have more questions to ask, this lag time will naturally want to grow out of control but we will keep it in check with smart survey flow/design and browser animations to maximize that dopamine
           </div>
-          <Link to="/survey">
+          <Link to="/home">
             <Button>proceed</Button>{" "}
           </Link>
         </div>

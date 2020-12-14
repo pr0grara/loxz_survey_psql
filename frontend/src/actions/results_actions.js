@@ -1,4 +1,5 @@
 import * as APIUtil from "../util/api/result_api_util";
+import { Link } from 'react-router-dom';
 
 export const RECEIVE_RESULT = "RECEIVE_RESULT";
 
@@ -17,8 +18,8 @@ export const gatherResult = (id) => {
         // debugger
         localStorage.setItem("result", JSON.stringify(result.data.answers));
       }
-      window.location.assign("https://loxz-survey.herokuapp.com/#/survey/results")
-      // window.location.assign(window.location.href + "/results")
+      // window.location.assign("https://loxz-survey.herokuapp.com/#/survey/results")
+      window.location.assign(window.location.href + "/results")
       // dispatch(receiveResult(result))
     })
     .catch((err) => console.log(err));

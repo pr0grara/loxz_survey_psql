@@ -97,7 +97,7 @@ class Survey extends React.Component {
         <label className="question-content">
           {question.content}
         </label>
-        <textarea className="answer" />
+        <textarea className="answer open" />
       </div>
     )
   }
@@ -117,11 +117,11 @@ class Survey extends React.Component {
 
   singleFactory(question) {
     return (
-      <div className="survey-question" aria-label="multi" key={question.name}>
+      <div className="survey-question" aria-label="single" key={question.name}>
         <label className="question-content">
           {question.content}
         </label>
-        <div className="multi-answers">
+        <div className="single-answers">
           {question.answers.map((answer, idx) => <div className="answer single" onClick={this.selectSingle} key={question.name + idx} checked={false}>{answer}</div>)}  
         </div>
       </div>
@@ -229,6 +229,8 @@ class Survey extends React.Component {
   }
 
   render() {
+    let surveyId = this.props.match.params.id;
+    let jsonSurvey = this.props.loadSurvey(surveyId);
     var htmlQuestions = jsonQuestions.map(question => {
       switch (question.type) {
         case "binary":

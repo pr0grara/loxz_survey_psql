@@ -4,6 +4,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const answers = require('./routes/api/answers');
 const results = require('./routes/api/results');
+const surveys = require('./routes/api/surveys');
+const questions = require('./routes/api/questions');
 const path = require('path');
 // const React = require("react");
 // const ReactDOM = require("react-dom");
@@ -29,6 +31,8 @@ app.get("/", (req, res) => {
 
 app.use('/api/answers', answers);
 app.use('/api/results', results);
+app.use('/api/surveys', surveys);
+app.use('/api/questions', questions);
 
 var port = process.env.PORT || 9000
 app.listen(port, () => console.log(`Server running on port ${port}`))

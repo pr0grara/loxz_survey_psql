@@ -3,6 +3,7 @@
 @import './stylesheets/survey.css';
 @import './stylesheets/results.css';
 @import './stylesheets/loading.css';
+@import './stylesheets/question_factory.css';
 
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -36,4 +37,12 @@ footer {
 .selected {
   color: whitesmoke;
   background-color: #2b59ed;
+}
+
+.label {
+  margin: 10px;
+}
+
+.answer:hover {
+  cursor: pointer;
 }

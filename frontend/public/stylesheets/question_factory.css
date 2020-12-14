@@ -1,0 +1,32 @@
+#question-factory {
+  display: flex;
+  flex-direction: column;
+}
+
+#question-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+#type-selector {
+  display: flex;
+}
+
+#answers-array {
+  display: flex;
+  flex-direction: column;
+}
+
+.answer-input {
+  font-size: 20px;
+  margin: 5px;
+  width: 200px;
+  height: 30px;
+}
+
+#add-more-answers {
+  margin: auto;
+  font-size: 30px;
+}
