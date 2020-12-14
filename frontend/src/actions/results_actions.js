@@ -14,6 +14,7 @@ export const gatherResult = (id) => {
       // console.log(result.data)
       // debugger
       if (result.data) {
+        // debugger
         localStorage.setItem("result", JSON.stringify(result.data.answers));
       }
       // window.location.assign("https://loxz-survey.herokuapp.com/#/survey/results")

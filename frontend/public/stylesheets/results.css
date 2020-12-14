@@ -1,0 +1,30 @@
+.survey-result {
+  display: flex;
+  flex-direction: column;
+}
+
+#results {
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  margin: auto;
+  margin-top: 2rem;
+  background: whitesmoke;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 20px #2b59ed;  
+}
+
+.survey-result {
+  display: flex;
+  flex-direction: row;
+}
+
+.survey-result label {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.survey-result-analysis {
+  color: #6881d3;
+}

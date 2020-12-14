@@ -12,7 +12,8 @@ class Welcome extends React.Component {
   }
 
   componentDidMount() {
-    document.querySelector("#loading").remove();
+    let loading = document.querySelector("#loading");
+    if (loading) loading.remove();
   }
 
   handleSubmit(e) {
@@ -33,7 +34,7 @@ class Welcome extends React.Component {
               Question: {answer.question}
             </li>
             <li className="survey-result-answer" key={"A" + idx.toString()}>
-              Answer: {answer.content}
+              Answer: {typeof answer.content === "string" ? answer.content : answer.content}
             </li>
             <label key={"L" + idx}>Azure Key Phrase(s):</label>
             <li className="survey-result-analysis" key={"K" + idx.toString()}>
