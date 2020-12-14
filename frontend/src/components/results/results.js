@@ -36,7 +36,7 @@ class Welcome extends React.Component {
             <li className="survey-result-answer" key={"A" + idx.toString()}>
               Answer: {typeof answer.content === "string" ? answer.content : answer.content}
             </li>
-            <label key={"L" + idx}>Azure Key Phrase(s):</label>
+            <label key={"L" + idx}>{answer.analysis === "" ? "" : "Azure Key Phrase(s):"}</label>
             <li className="survey-result-analysis" key={"K" + idx.toString()}>
               {answer.analysis === "" ? "" : answer.analysis.join(", ")}
             </li>
