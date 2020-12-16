@@ -36,7 +36,7 @@ class SurveyFactory extends React.Component {
     }
     var questionNums = htmlQuestions.map(question => question.dataset.number);
     var jsonQuestions = questionNums.map(num => questionsObj[num]);
-    debugger
+    // debugger
     console.log(jsonQuestions, user);
     var data = { user, questions: jsonQuestions };
     await this.props.newSurvey(data);

@@ -24,7 +24,7 @@ export const getQuestions = () => {
 export const makeQuestion = (data) => {
   return APIUtil.newQuestion(data)
     .then((res) => {
-      debugger
+      // debugger
       console.log(res)
       getQuestions();
       // window.location.assign("https://loxz-survey.herokuapp.com/#/home")
