@@ -1,0 +1,9 @@
+#survey-index {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.survey-index-item {
+  padding: 7px;
+}

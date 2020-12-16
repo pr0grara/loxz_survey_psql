@@ -1,9 +1,10 @@
-.instructions {
+#instructions {
   font-size: 17px;
   font-weight: 600;
+  margin: 10px;
 }
 
-#welcome-page {
+.welcome-page {
   width: 700px;
   margin: auto;
   display: flex;

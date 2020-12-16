@@ -40,7 +40,9 @@ class SurveyFactory extends React.Component {
     console.log(jsonQuestions, user);
     var data = { user, questions: jsonQuestions };
     await this.props.newSurvey(data);
-    window.location.assign("http://localhost:3000/#/surveys")
+    // window.location.assign("http://localhost:3000/#/surveys")
+    window.location.assign("https://loxz-survey.herokuapp.com/#/surveys")
+
   }
 
   render() {

@@ -91,5 +91,12 @@ textarea {
 }
 
 #survey-factory {
+  display: flex;
+  background: whitesmoke;
+  box-shadow: 0 1px 3px #2b59ed;
+  padding: 20px;
+  border-radius: 4px;
+  flex-direction: column;
+  margin: auto;
   width: 700px;
 }
