@@ -8,19 +8,12 @@ import alert from 'alert';
 class QuestionIndex extends React.Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.deleteQuestion = this.deleteQuestion.bind(this);
   }
 
-  componentWillMount() {
-    this.props.getQuestions();
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    var selected = document.querySelectorAll(".selected")
-    console.log(selected)
-  }
+  // UNSAFE_componentWillMount() {
+  //   this.props.getQuestions();
+  // }
 
   selectQuestion(e) {
     e.preventDefault();
@@ -41,7 +34,7 @@ class QuestionIndex extends React.Component {
 
   binaryFactory(question) {
     return (
-      <div className="survey-question" aria-label="binary" key={question.name} data-number={question.number} onClick={this.selectQuestion}>
+      <div className="survey-question" aria-label="binary" key={question._id} data-number={question.number} onClick={this.selectQuestion}>
         <label className="question-content">{question.content}</label>
         <div className="binary-answers">
           <div
@@ -66,7 +59,7 @@ class QuestionIndex extends React.Component {
 
   openFactory(question) {
     return (
-      <div className="survey-question" aria-label="open" key={question.name} data-number={question.number} onClick={this.selectQuestion}>
+      <div className="survey-question" aria-label="open" key={question._id} data-number={question.number} onClick={this.selectQuestion}>
         <label className="question-content">{question.content}</label>
         <textarea className="answer open" />
         {this.trashIcon()}
@@ -76,14 +69,14 @@ class QuestionIndex extends React.Component {
 
   multiFactory(question) {
     return (
-      <div className="survey-question" aria-label="multi" key={question.name} data-number={question.number} onClick={this.selectQuestion}>
+      <div className="survey-question" aria-label="multi" key={question._id} data-number={question.number} onClick={this.selectQuestion}>
         <label className="question-content">{question.content}</label>
         <div className="multi-answers">
           {question.answers.map((answer, idx) => (
             <div
               className="answer multi"
               onClick={this.selectMulti}
-              key={question.name + idx}
+              key={question._id + idx.toString()}
               checked={false}
             >
               {answer}
@@ -97,11 +90,11 @@ class QuestionIndex extends React.Component {
 
   singleFactory(question) {
     return (
-      <div className="survey-question" aria-label="single" key={question.name} data-number={question.number} onClick={this.selectQuestion}>
+      <div className="survey-question" aria-label="single" key={question._id} data-number={question.number} onClick={this.selectQuestion}>
         <label className="question-content">{question.content}</label>
         <div className="single-answers">
           {question.answers.map((answer, idx) => (
-            <div className="answer single" key={question.name + idx} checked={false}>
+            <div className="answer single" key={question._id + idx.toString()} checked={false}>
               {answer}
             </div>
           ))}
@@ -123,17 +116,12 @@ class QuestionIndex extends React.Component {
         case "single":
           return this.singleFactory(question);
         default:
-          console.log("WTF");
+          console.log("error in render function switch statement");
       }
     });
     return (
       <div id="question-index">
         {htmlQuestions}
-        <input
-          type="submit"
-          className="submit"
-          onClick={this.handleSubmit}
-        ></input>
       </div>
     );
   }

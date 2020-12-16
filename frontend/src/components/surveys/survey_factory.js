@@ -18,6 +18,22 @@ class SurveyFactory extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    var user = document.querySelector("#user-name").value;
+    if (!user) {
+      alert("Please add your name for tracking purposes");
+      return
+    }
+    var rawQuestions = JSON.parse(localStorage["questions"])
+    var htmlQuestions = Array.from(document.querySelectorAll(".selected"));
+    if (htmlQuestions.length == 0) {
+      alert("Surveys generally include questions... click on the questions you'd like to include");
+      return
+    }
+    var questionNums = htmlQuestions.map(question => question.dataset.number);
+    var jsonQuestions = questionNums.map(num => rawQuestions[num]);
+    console.log(jsonQuestions, user);
+    var data = { user, questions: jsonQuestions };
+    this.props.newSurvey(data);
   }
 
   render() {
@@ -25,6 +41,14 @@ class SurveyFactory extends React.Component {
       <div id="survey-factory">
         <div className="label">Click on the questions you'd like to include in your survey:</div>
         <QuestionIndexContainer />
+        <div className="label">Your Name</div>
+        <input type="text" id="user-name"></input>
+        <input
+          type="submit"
+          className="submit"
+          onClick={this.handleSubmit}
+          value="Make Survey"
+        ></input>
       </div>
     );
   }

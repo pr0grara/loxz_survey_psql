@@ -32,7 +32,6 @@ class QuestionFactory extends React.Component {
     let newQuestion = {
       content, user, type, answers, number
     }
-    debugger
     this.props.addQuestion(newQuestion)
   }
 
@@ -43,7 +42,6 @@ class QuestionFactory extends React.Component {
     
     function addMoreAnswers() {
       let answers = document.querySelector("#answers-array")
-      console.log("gayyy")
       let newAnswer = document.createElement("input");
       newAnswer.type = "text"
       newAnswer.className = "answer-input"

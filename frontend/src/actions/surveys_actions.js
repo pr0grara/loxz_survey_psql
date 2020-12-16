@@ -9,18 +9,31 @@ export const receiveResult = (result) => ({
 });
 
 export const gatherSurvey = (id) => {
-  debugger
   return APIUtil.getSurvey(id)
     .then((survey) => {
       console.log(survey.data)
-      // debugger
       if (survey.data) {
-        // debugger
         localStorage.setItem("survey", JSON.stringify(survey.data.questions));
       }
+      window.location.reload();
       // window.location.assign("https://loxz-survey.herokuapp.com/#/survey/results")
       // window.location.assign(window.location.href + "/results")
       // dispatch(receiveResult(result))
     })
     .catch((err) => console.log(err));
 };
+
+export const getSurveys = () => {
+  return APIUtil.getSurveys()
+    .then(surveys => {
+      // debugger
+      localStorage.setItem("surveys", JSON.stringify(surveys.data))
+    })
+    .catch(err => console.log(err))
+}
+
+export const newSurvey = (data) => {
+  return APIUtil.newSurvey(data)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+}

@@ -9,8 +9,9 @@ class SurveyIndex extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
+  
   componentDidMount() {
+    this.props.getSurveys()
     let loading = document.querySelector("#loading");
     if (loading) loading.remove();
   }
@@ -20,10 +21,17 @@ class SurveyIndex extends React.Component {
   }
 
   render() {
+    let surveys = JSON.parse(localStorage.surveys);
+    let htmlSurveys = surveys.map(survey => (
+      <div className="survey-index-item" key={survey.number}>
+        <Link to={`/surveys/${survey.number}`}>Survey #{survey.number} by {survey.user}</Link>
+      </div>
+    ))
+    console.log(surveys)
     return (
       <div id="survey-index">
         SURVEY INDEX
-        <Link to="/surveys/1">Survey 1</Link>
+        {htmlSurveys}
       </div>
     );
   }

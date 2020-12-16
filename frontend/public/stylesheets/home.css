@@ -1,0 +1,41 @@
+#home {
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#navigation {
+  margin-top: 20px;
+  width: 700px;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 1px 3px #2b59ed;
+  padding: 10px;
+  background: whitesmoke;
+  border-radius: 4px;
+}
+
+#navigation > a {
+  width: 300px;
+}
+
+#navigation  button {
+  height: 30px;
+}
+
+#home > img {
+  /* margin: auto; */
+}
+
+#popup {
+  width: 400px;
+  height: 400px;
+}
+
+#footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

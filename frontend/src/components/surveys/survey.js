@@ -79,7 +79,7 @@ class Survey extends React.Component {
 
   binaryFactory(question) {
     return (
-      <div className="survey-question" aria-label="binary" key={question.name}>
+      <div className="survey-question" aria-label="binary" key={question._id}>
         <label className="question-content">
           {question.content}
         </label>
@@ -93,7 +93,7 @@ class Survey extends React.Component {
 
   openFactory(question) {
     return (
-      <div className="survey-question" aria-label="open" key={question.name}>
+      <div className="survey-question" aria-label="open" key={question._id}>
         <label className="question-content">
           {question.content}
         </label>
@@ -104,12 +104,12 @@ class Survey extends React.Component {
 
   multiFactory(question) {
     return (
-      <div className="survey-question" aria-label="multi" key={question.name}>
+      <div className="survey-question" aria-label="multi" key={question._id}>
         <label className="question-content">
           {question.content}
         </label>
         <div className="multi-answers">
-          {question.answers.map((answer, idx) => <div className="answer multi" onClick={this.selectMulti} key={question.name + idx} checked={false}>{answer}</div>)}  
+          {question.answers.map((answer, idx) => <div className="answer multi" onClick={this.selectMulti} key={question._id + idx} checked={false}>{answer}</div>)}  
         </div>
       </div>
     )
@@ -117,12 +117,12 @@ class Survey extends React.Component {
 
   singleFactory(question) {
     return (
-      <div className="survey-question" aria-label="single" key={question.name}>
+      <div className="survey-question" aria-label="single" key={question._id}>
         <label className="question-content">
           {question.content}
         </label>
         <div className="single-answers">
-          {question.answers.map((answer, idx) => <div className="answer single" onClick={this.selectSingle} key={question.name + idx} checked={false}>{answer}</div>)}  
+          {question.answers.map((answer, idx) => <div className="answer single" onClick={this.selectSingle} key={question._id + idx} checked={false}>{answer}</div>)}  
         </div>
       </div>
     )
@@ -229,9 +229,8 @@ class Survey extends React.Component {
   }
 
   render() {
-    let surveyId = this.props.match.params.id;
-    let jsonSurvey = this.props.loadSurvey(surveyId);
-    var htmlQuestions = jsonQuestions.map(question => {
+    var survey = JSON.parse(localStorage.surveys)[this.props.match.params.id].questions || jsonQuestions
+    var htmlQuestions = survey.map(question => {
       switch (question.type) {
         case "binary":
           return this.binaryFactory(question);
@@ -242,7 +241,7 @@ class Survey extends React.Component {
         case "single":
           return this.singleFactory(question);
         default:
-          console.log("WTF");
+          console.log("error in switch survey.js");
       }
     })
 

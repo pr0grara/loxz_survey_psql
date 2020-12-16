@@ -19,10 +19,14 @@ router.get("/data/:survey_no", (req, res) => {
     .catch(err => console.log(err))
 });
 
-router.post("/new", jsonParser, (req, res) => {
+router.post("/new", jsonParser, async (req, res) => {
+  const number = await Survey.find()
+    .then(res => res.map(r => r).length)
+    .catch(err => console.log(err));
+  console.log(number)
   // console.log(req.body);
-  const [number, user, questions] = [
-    req.body.number,
+  const [user, questions] = [
+    // req.body.number,
     req.body.user,
     req.body.questions,
   ];
@@ -42,6 +46,12 @@ router.get("/count", (req, res) => {
   Survey.find()
     .then(surveys => res.json({ length: (surveys.map(res => res).length) }))
     .catch(err => res.status(404).json({ notripsfound: 'No trips found' }));
+})
+
+router.get("/all", (req, res) => {
+  Survey.find()
+    .then(surveys => res.json(surveys))
+    .catch(err => console.log(err))
 })
 
 module.exports = router;

@@ -4,16 +4,16 @@ import { Switch, Route, Link } from 'react-router-dom';
 import QuestionIndexContainer from "./question/question_index";
 import QuestionFactoryContainer from "./question/question_factory_container";
 import SurveyContainer from "./surveys/survey_container";
-import SurveyIndexContainer from "./surveys/survey_index";
-import SurveyFactoryContainer from "./surveys/survey_factory";
+import SurveyIndexContainer from "./surveys/survey_index_container";
+import SurveyFactoryContainer from "./surveys/survey_factory_container";
 import ResultsContainer from "./results/results_container";
-import HomeContainer from './home/home';
-import Welcome from "./welcome/welcome";
+import HomeContainer from './home/home_container';
+import WelcomeContainer from "./welcome/welcome_container";
 
 const App = () => {
   return (
     <div>
-      <Route exact path='/' component={Welcome} />
+      <Route exact path='/' component={WelcomeContainer} />
       <Switch>
         <Route exact path='/home' component={HomeContainer} />
         <Route exact path='/questions' component={QuestionIndexContainer} />

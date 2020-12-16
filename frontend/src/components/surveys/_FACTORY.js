@@ -119,7 +119,7 @@ const htmlQuestions = jsonQuestions.map(question => {
     case "multi":
       return multiFactory(question);
     default:
-      console.log("WTF");
+      console.log("error in switch _FACTORY.js");
   }
 })
 
