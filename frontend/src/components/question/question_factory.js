@@ -83,18 +83,17 @@ class QuestionFactory extends React.Component {
   render() {
     return (
      <div id="question-factory">
-       QUESTION FACTORY
        <div id="question-input">
-        <div className="label">ask a question</div>
+        <div className="label">Your Question:</div>
         <textarea id="question-content"></textarea>
-        <div className="label">type</div>
+        <div className="label">Question Type:</div>
         <div id="type-selector">
           <div id="binary" className="answer" onClick={this.selectSingle} checked={false}>true/false</div>
           <div id="open" className="answer" onClick={this.selectSingle} checked={false}>open ended</div>
           <div id="multi" className="answer" onClick={this.selectSingle} checked={false}>choose multiple</div>
           <div id="single" className="answer" onClick={this.selectSingle} checked={false}>choose one</div>
         </div>
-        <div className="label">Your Name</div>
+        <div className="label">Your Name:</div>
         <input id="question-author" type="text" className="answer-input"></input>
        </div>
       <input type="submit" className="submit" onClick={this.handleSubmit}></input>     

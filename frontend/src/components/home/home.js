@@ -53,8 +53,8 @@ class Home extends React.Component {
     return (
       <div id="home">
         <div id="navigation">
-          <Link to="/survey/new">
-            <Button onMouseOver={this.hover} onMouseOut={this.clear} name="make survey">Make a Survey</Button>{" "}
+          <Link to="/questions/new">
+            <Button onMouseOver={this.hover} onMouseOut={this.clear} name="make question">Create New Questions</Button>{" "}
           </Link>
           <Link to="/surveys">
             <Button onMouseOver={this.hover} onMouseOut={this.clear} name="take">Take a Survey</Button>{" "}
@@ -62,8 +62,8 @@ class Home extends React.Component {
           {/* <Link to="/survey/results">
             <Button>Results</Button>{" "}
           </Link> */}
-          <Link to="/questions/new">
-            <Button onMouseOver={this.hover} onMouseOut={this.clear} name="make question">Create New Questions</Button>{" "}
+          <Link to="/survey/new">
+            <Button onMouseOver={this.hover} onMouseOut={this.clear} name="make survey">Create New Survey</Button>{" "}
           </Link>
         </div>
         <div id="footer">

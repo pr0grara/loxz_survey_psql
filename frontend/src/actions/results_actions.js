@@ -19,7 +19,7 @@ export const gatherResult = (id) => {
         localStorage.setItem("result", JSON.stringify(result.data.answers));
       }
       // window.location.assign("https://loxz-survey.herokuapp.com/#/survey/results")
-      window.location.assign(window.location.href + "/results")
+      window.location.assign("http://localhost:3000/#/survey/results")
       // dispatch(receiveResult(result))
     })
     .catch((err) => console.log(err));

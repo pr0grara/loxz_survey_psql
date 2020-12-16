@@ -18,8 +18,12 @@ router.get("/data/:question_number", (req, res) => {
 });
 
 router.post("/new", jsonParser, async (req, res) => {
-  const number = await Question.find()
-    .then(res => res.map(r => r).length)
+  const number = await Question.find().sort({ number: -1 })
+    .then(res => {
+      // console.log(res)
+      return res[0].number + 1;
+      // return res.map(r => r).length
+    })
     .catch(err => console.log(err));
   console.log(number)
   const [type, content, answers, user] = [

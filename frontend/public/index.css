@@ -1,3 +1,4 @@
+@import './reset.css';
 @import './stylesheets/reset.css';
 @import './stylesheets/welcome.css';
 @import './stylesheets/survey.css';
@@ -7,6 +8,8 @@
 @import './stylesheets/alert.css';
 @import './stylesheets/survey_factory.css';
 @import './stylesheets/home.css';
+@import './stylesheets/navbar.css';
+@import './stylesheets/survey_index.css';
 
 body {
   font-family: Arial, Helvetica, sans-serif;

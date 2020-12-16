@@ -22,7 +22,11 @@ export const getQuestions = () => {
 
 export const makeQuestion = (data) => {
   return APIUtil.newQuestion(data)
-    .then((res) => console.log(res))
+    .then((res) => {
+      console.log(res)
+      // window.location.assign("https://loxz-survey.herokuapp.com/#/home")
+      window.location.reload();
+    })
     .catch((err) => console.log(err));
 };
 

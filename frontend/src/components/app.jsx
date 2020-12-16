@@ -9,10 +9,12 @@ import SurveyFactoryContainer from "./surveys/survey_factory_container";
 import ResultsContainer from "./results/results_container";
 import HomeContainer from './home/home_container';
 import WelcomeContainer from "./welcome/welcome_container";
+import NavBar from "./navbar/navbar";
 
 const App = () => {
   return (
-    <div>
+    <div id="app">
+      <NavBar />
       <Route exact path='/' component={WelcomeContainer} />
       <Switch>
         <Route exact path='/home' component={HomeContainer} />
