@@ -61,7 +61,7 @@ router.post("/delete/:number", (req, res) => {
   var num = req.params.number;
   console.log(req.params)
   Question.deleteOne({ number: num })
-    .then(result => console.log(result))
+    .then(result => res.json(result))
     .catch(err => console.log(err))
 })
 

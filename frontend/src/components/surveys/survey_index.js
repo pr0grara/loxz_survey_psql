@@ -11,7 +11,7 @@ class SurveyIndex extends React.Component {
   }
   
   componentDidMount() {
-    this.props.getSurveys()
+    // this.props.getSurveys()
     let loading = document.querySelector("#loading");
     if (loading) loading.remove();
   }

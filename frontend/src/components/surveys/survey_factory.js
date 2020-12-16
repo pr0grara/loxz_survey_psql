@@ -16,7 +16,7 @@ class SurveyFactory extends React.Component {
     if (loading) loading.remove();
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
     var user = document.querySelector("#user-name").value;
     if (!user) {
@@ -24,16 +24,23 @@ class SurveyFactory extends React.Component {
       return
     }
     var rawQuestions = JSON.parse(localStorage["questions"])
+    let questionsObj = {};
+    rawQuestions.forEach(raw => {
+      let id = raw.number;
+      questionsObj[id] = raw;
+    })
     var htmlQuestions = Array.from(document.querySelectorAll(".selected"));
     if (htmlQuestions.length == 0) {
       alert("Surveys generally include questions... click on the questions you'd like to include");
       return
     }
     var questionNums = htmlQuestions.map(question => question.dataset.number);
-    var jsonQuestions = questionNums.map(num => rawQuestions[num]);
+    var jsonQuestions = questionNums.map(num => questionsObj[num]);
+    debugger
     console.log(jsonQuestions, user);
     var data = { user, questions: jsonQuestions };
-    this.props.newSurvey(data);
+    await this.props.newSurvey(data);
+    window.location.assign("http://localhost:3000/#/surveys")
   }
 
   render() {

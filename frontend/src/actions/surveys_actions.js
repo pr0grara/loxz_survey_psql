@@ -26,14 +26,18 @@ export const gatherSurvey = (id) => {
 export const getSurveys = () => {
   return APIUtil.getSurveys()
     .then(surveys => {
-      // debugger
       localStorage.setItem("surveys", JSON.stringify(surveys.data))
+      return
     })
     .catch(err => console.log(err))
 }
 
 export const newSurvey = (data) => {
   return APIUtil.newSurvey(data)
-    .then(res => console.log(res))
+    .then(res => {
+      console.log(res)
+      return getSurveys();
+      // window.location.assign("http://localhost:3000/#/surveys");
+    })
     .catch(err => console.log(err))
 }

@@ -14,6 +14,7 @@ export const getQuestions = () => {
     .then(res => {
       console.log(res)
       localStorage.setItem("questions", JSON.stringify(res.data))
+      return
     })
     .catch(err => {
       console.log(err)
@@ -23,7 +24,9 @@ export const getQuestions = () => {
 export const makeQuestion = (data) => {
   return APIUtil.newQuestion(data)
     .then((res) => {
+      debugger
       console.log(res)
+      getQuestions();
       // window.location.assign("https://loxz-survey.herokuapp.com/#/home")
       window.location.reload();
     })
@@ -32,7 +35,10 @@ export const makeQuestion = (data) => {
 
 export const deleteQuestion = (number) => {
   return APIUtil.deleteQuestion(number)
-    .then(res => console.log(res))
+    .then(res => {
+      console.log(res)
+      return getQuestions();
+    })
     .catch(err => console.log(err))
 }
 

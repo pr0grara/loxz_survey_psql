@@ -20,12 +20,23 @@ class QuestionIndex extends React.Component {
     e.currentTarget.classList.toggle("selected")
   }
 
-  deleteQuestion(e) {
+  dropQuestion(num) {
+    let htmlQuestions = document.querySelectorAll(".survey-question");
+    for (let i = 0; i < htmlQuestions.length; i++) {
+      if (htmlQuestions[i].dataset.number == num) {
+        htmlQuestions[i].remove();
+        return
+      }
+    }
+  }
+
+  async deleteQuestion(e) {
     if (!confirm("delete permanently?")) return;
     let parent = e.currentTarget.parentElement;
     let number = parent.dataset.number;
     console.log(number);
-    this.props.deleteQuestion(number);
+    await this.props.deleteQuestion(number);
+    this.dropQuestion(number)
   }
 
   trashIcon() {
