@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const Question = require("../../models/Question");
+const { questionCount } = require("../util");
 const router = express.Router();
 
 var jsonParser = bodyParser.json();
@@ -19,10 +20,16 @@ router.get("/data/:question_number", (req, res) => {
     .catch(err => console.log(err))
 });
 
-router.post("/new", jsonParser, (req, res) => {
+router.post("/new", jsonParser, async (req, res) => {
+  debugger
   // console.log(req.body);
-  const [number, type, content, answers, user] = [
-    req.body.number,
+  // const number = await questionCount();
+  const number = await Question.find()
+    .then(res => res.map(r => r).length)
+    .catch(err => console.log(err));
+  console.log(number)
+  const [type, content, answers, user] = [
+    // req.body.number,
     req.body.type,
     req.body.content,
     req.body.answers,
@@ -33,7 +40,7 @@ router.post("/new", jsonParser, (req, res) => {
     type,
     content,
     answers,
-    user,
+    user,                             
   });
   // console.log(newResult);
   newQuestion
@@ -42,10 +49,25 @@ router.post("/new", jsonParser, (req, res) => {
     .catch((err) => console.log(err));
 });
 
+router.get("/all", (req, res) => {
+  Question.find()
+    .then(questions => res.json(questions))
+    .catch(err => console.log(err))
+})
+
 router.get("/count", (req, res) => {
+  debugger
   Question.find()
     .then(questions => res.json({ length: (questions.map(res => res).length) }))
     .catch(err => res.status(404).json({ notripsfound: 'No trips found' }));
+})
+
+router.post("/delete/:number", (req, res) => {
+  var num = req.params.number;
+  console.log(req.params)
+  Question.deleteOne({ number: num })
+    .then(result => console.log(result))
+    .catch(err => console.log(err))
 })
 
 module.exports = router;

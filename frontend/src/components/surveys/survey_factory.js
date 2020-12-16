@@ -1,4 +1,5 @@
 import React from 'react';
+import QuestionIndexContainer from '../question/question_index_container'
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { Button, Nav, NavDropdown, Navbar, Form, FormControl } from "react-bootstrap";
@@ -22,7 +23,8 @@ class SurveyFactory extends React.Component {
   render() {
     return (
       <div id="survey-factory">
-        FACTORY
+        <div className="label">Click on the questions you'd like to include in your survey:</div>
+        <QuestionIndexContainer />
       </div>
     );
   }

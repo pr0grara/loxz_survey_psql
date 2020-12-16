@@ -8,8 +8,33 @@ export const receiveQuestion = (question) => ({
   question
 });
 
+export const getQuestions = () => {
+  // debugger
+  return APIUtil.getQuestions()
+    .then(res => {
+      console.log(res)
+      localStorage.setItem("questions", JSON.stringify(res.data))
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+
 export const makeQuestion = (data) => {
   return APIUtil.newQuestion(data)
     .then((res) => console.log(res))
     .catch((err) => console.log(err));
 };
+
+export const deleteQuestion = (number) => {
+  return APIUtil.deleteQuestion(number)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+}
+
+// export const editQuestion = (data) => {
+//   return APIUtil.editQuestion(data)
+//     .then(res => {
+//       localStorage.questions
+//     })
+// }
