@@ -45,7 +45,8 @@ class Survey extends React.Component {
   }
 
   revealNext() {
-    let previous = document.querySelectorAll(".survey-question")[this.activeQuestionIdx]
+    let previous = document.querySelectorAll(".survey-question")[this.activeQuestionIdx];
+    if (!previous) return
     if (this.check(previous)) {
       alert("please answer");
       return
@@ -100,7 +101,7 @@ class Survey extends React.Component {
   }
 
   selectMulti(e) {
-    e.target.checked = true;
+    e.target.checked = !e.target.checked;
     e.target.classList.toggle("selected");
   }
 
@@ -278,10 +279,10 @@ class Survey extends React.Component {
 
     var loading = document.createElement("a");
     loading.id = "loading";
-    loading.href = "http://www.lowgif.com/f923243801ca43a0.html";
+    loading.href = "https://www.lowgif.com/f923243801ca43a0.html";
     loading.target = "_blank";
     var img = document.createElement("img");
-    img.src = "http://cdn.lowgif.com/full/f923243801ca43a0-15-latest-and-best-loading-animations-to-make-user-enjoy-waiting.gif";
+    img.src = "https://cdn.lowgif.com/full/f923243801ca43a0-15-latest-and-best-loading-animations-to-make-user-enjoy-waiting.gif";
     loading.appendChild(img);
     document.querySelector("body").appendChild(loading);
 
