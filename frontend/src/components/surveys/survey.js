@@ -28,6 +28,8 @@ class Survey extends React.Component {
         return answer[0].value !== "" ? false : true;
       case "multi":
         return Array.from(answer).some((ans) => ans.checked) ? false : true;
+      case "single":
+        return Array.from(answer).some((ans) => ans.checked) ? false : true;
     }
   }
 
@@ -263,6 +265,8 @@ class Survey extends React.Component {
         case "open":
           return values[0].value !== "" ? false : true;
         case "multi":
+          return values.some(ans => ans.checked) ? false : true;
+        case "single":
           return values.some(ans => ans.checked) ? false : true;
       }
     })
