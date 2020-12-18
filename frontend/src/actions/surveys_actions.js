@@ -11,7 +11,7 @@ export const receiveResult = (result) => ({
 export const gatherSurvey = (id) => {
   return APIUtil.getSurvey(id)
     .then((survey) => {
-      console.log(survey.data)
+      // console.log(survey.data)
       if (survey.data) {
         localStorage.setItem("survey", JSON.stringify(survey.data.questions));
       }

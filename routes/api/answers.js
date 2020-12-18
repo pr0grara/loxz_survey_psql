@@ -30,6 +30,7 @@ router.post('/new', jsonParser, (req, res) => {
   newAnswer
     .save()
     .then(answer => res.json(answer))
+    // .then(answer => console.log("saved????"))
     .catch(err => console.log(err))
 })
 

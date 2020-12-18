@@ -5,7 +5,6 @@ export const resultsReducer = (state = {}, action) => {
   const nextState = Object.assign({}, state);
   switch (action.type) {
     case RECEIVE_RESULT:
-      console.log(action.result)
       nextState[action.result.number] = action.result;
       return nextState;
     default:

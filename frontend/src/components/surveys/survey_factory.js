@@ -37,11 +37,11 @@ class SurveyFactory extends React.Component {
     var questionNums = htmlQuestions.map(question => question.dataset.number);
     var jsonQuestions = questionNums.map(num => questionsObj[num]);
     // debugger
-    console.log(jsonQuestions, user);
+    // console.log(jsonQuestions, user);
     var data = { user, questions: jsonQuestions };
     await this.props.newSurvey(data);
-    // window.location.assign("http://localhost:3000/#/surveys")
-    window.location.assign("https://loxz-survey.herokuapp.com/#/surveys")
+    // window.location.assign("https://loxz-survey.herokuapp.com/#/surveys")
+    window.location.assign("http://localhost:3000/#/surveys")
 
   }
 

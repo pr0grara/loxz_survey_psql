@@ -23,7 +23,7 @@ class Welcome extends React.Component {
   result() {
     // this.props.gatherResult(this.props.resultNo)
     var answers = JSON.parse(localStorage.result);
-    // console.log(answers)
+    // console.log(answers) 
     answers = answers.map((answer, idx) => {
       // console.log("Q" + idx.toString())
       return (

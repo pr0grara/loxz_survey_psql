@@ -34,7 +34,7 @@ class QuestionIndex extends React.Component {
     if (!confirm("delete permanently?")) return;
     let parent = e.currentTarget.parentElement;
     let number = parent.dataset.number;
-    console.log(number);
+    // console.log(number);
     await this.props.deleteQuestion(number);
     this.dropQuestion(number)
   }

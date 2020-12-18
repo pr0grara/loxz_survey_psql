@@ -1,4 +1,4 @@
-@import './reset.css';
+@import './stylesheets/reset.css';
 @import './stylesheets/reset.css';
 @import './stylesheets/welcome.css';
 @import './stylesheets/survey.css';
@@ -10,6 +10,7 @@
 @import './stylesheets/home.css';
 @import './stylesheets/navbar.css';
 @import './stylesheets/survey_index.css';
+@import './stylesheets/app.css';
 
 body {
   font-family: Arial, Helvetica, sans-serif;

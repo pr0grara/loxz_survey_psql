@@ -8,18 +8,29 @@ export const receiveResult = (result) => ({
   result
 });
 
+export const newResult = (data) => {
+  return APIUtil.newResult(data)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+}
+
+export const resultCount = () => {
+  return APIUtil.resultCount()
+    .then(res => res)
+    .catch(err => console.log(err))
+}
+
 export const gatherResult = (id) => {
   // debugger
   return APIUtil.getResult(id)
     .then((result) => {
       // console.log(result.data)
-      // debugger
       if (result.data) {
         // debugger
         localStorage.setItem("result", JSON.stringify(result.data.answers));
       }
-      window.location.assign("https://loxz-survey.herokuapp.com/#/survey/results")
-      // window.location.assign("http://localhost:3000/#/survey/results")
+      // window.location.assign("https://loxz-survey.herokuapp.com/#/survey/results")
+      window.location.assign("http://localhost:3000/#/survey/results")
       // dispatch(receiveResult(result))
     })
     .catch((err) => console.log(err));

@@ -9,6 +9,68 @@ class Survey extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.analyzed = [];
+    this.activeQuestionIdx = 0;
+    this.activeQuestion;
+    this.selectSingle = this.selectSingle.bind(this);
+    this.selectBinary = this.selectBinary.bind(this);
+    this.revealNext = this.revealNext.bind(this);
+    this.questionCount = 0;
+    this.answeredCount = 0;
+    this.scrollHeight = 0;
+  }
+
+  check(question) {
+    let answer = question.querySelectorAll(".answer");
+    switch (question.ariaLabel) {
+      case "binary":
+        return answer[0].checked || answer[1].checked ? false : true;
+      case "open":
+        return answer[0].value !== "" ? false : true;
+      case "multi":
+        return Array.from(answer).some((ans) => ans.checked) ? false : true;
+    }
+  }
+
+  async loading() {
+    let percentDone = Math.ceil(this.answeredCount / this.questionCount * 100);
+    let loading = document.querySelector("#loading-bar")
+    loading.style.width = `${percentDone}%`;
+    // loading.classList.toggle("animate");
+    // setTimeout(() => {
+    //   document.querySelector("#loading-bar").classList.toggle("animate")
+    // }, 400);
+    // loading.innerText = `${percentDone}%`;
+  }
+
+  revealNext() {
+    let previous = document.querySelectorAll(".survey-question")[this.activeQuestionIdx]
+    if (this.check(previous)) {
+      alert("please answer");
+      return
+    }
+
+    if (this.activeQuestionIdx + 2 == this.questionCount) {
+      document.querySelector("#submit").classList.toggle("hidden");
+      document.querySelector("#next").classList.toggle("hidden");
+    } 
+
+    this.activeQuestionIdx = this.activeQuestionIdx + 1;
+    previous.classList.toggle("answered");
+
+    if (this.activeQuestionIdx !== this.questionCount) {
+      this.activeQuestion = document.querySelectorAll(".survey-question")[this.activeQuestionIdx];
+      this.scrollHeight = this.scrollHeight + previous.scrollHeight;
+      this.activeQuestion.classList.toggle("unanswered");
+      // window.innerHeight = 700 + this.scrollHeight;
+      window.scrollTo(0, this.scrollHeight + 10);
+    }
+
+    this.answeredCount = this.answeredCount + 1;
+    this.loading();
+  }
+
+  nextButton() {
+    document.querySelector("#next").classList.toggle("hidden");
   }
 
   async analyzeThis(answer) {
@@ -27,11 +89,11 @@ class Survey extends React.Component {
   }
 
   async analyzer(unfilteredAnswers) {
-    console.log(unfilteredAnswers);
+    // console.log(unfilteredAnswers);
     var filtered = unfilteredAnswers.filter(answer => Object.keys(answer)[0] == "open");
     filtered = filtered.map(obj => obj["open"]);
     filtered = filtered.map(answer => ({ text: answer[0].value }));
-    console.log(filtered);
+    // console.log(filtered);
     await this.iterator(filtered)
   }
 
@@ -41,31 +103,32 @@ class Survey extends React.Component {
   }
 
   selectBinary(e) {
-    e.preventDefault();
+    // e.preventDefault();
     let parentElement = e.target.parentElement;
     let children = parentElement.children;
     let [child1, child2] = [children[0], children[1]];
-    console.log(child1)
     if (e.target == child1) {
-        child1.checked = child1.checked ? false : true;
-        child1.classList.toggle("selected");
-        if (child2.checked) {
-          child2.checked = false;
-          child2.classList.toggle("selected");
-        }
-      } else {
-        child2.checked = child2.checked ? false : true;
+      child1.checked = child1.checked ? false : true;
+      child1.classList.toggle("selected");
+      if (child2.checked) {
+        child2.checked = false;
         child2.classList.toggle("selected");
-        if (child1.checked) {
-          child1.checked = false;
-          child1.classList.toggle("selected");
-        }
-
+      }
+    } else {
+      child2.checked = child2.checked ? false : true;
+      child2.classList.toggle("selected");
+      if (child1.checked) {
+        child1.checked = false;
+        child1.classList.toggle("selected");
+      }
+    }
+    if (e.target.parentElement.parentElement == this.activeQuestion) {
+      this.revealNext();
     }
   }
 
   selectSingle(e) {
-    e.preventDefault()
+    // e.preventDefault()
     let parent = e.target.parentElement;
     let children = parent.children;
     if (e.target.checked) return;
@@ -75,11 +138,18 @@ class Survey extends React.Component {
     }
     e.target.checked = true;
     e.target.classList.toggle("selected")
+    if (e.target.parentElement.parentElement == this.activeQuestion) {
+      this.revealNext();
+    }  
   }
 
-  binaryFactory(question) {
+  classNamer(i) {
+    return i == 0 ? "survey-question" : "survey-question unanswered";
+  }
+
+  binaryFactory(question, i) {
     return (
-      <div className="survey-question" aria-label="binary" key={question._id}>
+      <div className={this.classNamer(i)} aria-label="binary" key={question._id}>
         <label className="question-content">
           {question.content}
         </label>
@@ -91,22 +161,21 @@ class Survey extends React.Component {
     )
   }
 
-  openFactory(question) {
+  openFactory(question, i) {
     return (
-      <div className="survey-question" aria-label="open" key={question._id}>
-        <label className="question-content">
-          {question.content}
-        </label>
+      <div className={this.classNamer(i)} aria-label="open" key={question._id}>
+        <label className="question-content">{question.content}</label>
         <textarea className="answer open" />
       </div>
-    )
+    );
   }
 
-  multiFactory(question) {
+  multiFactory(question, i) {
     return (
-      <div className="survey-question" aria-label="multi" key={question._id}>
+      <div className={this.classNamer(i)} aria-label="multi" key={question._id}>
         <label className="question-content">
           {question.content}
+        <div style={{fontSize:"small", marginTop:"10px"}}>(select all that apply)</div>
         </label>
         <div className="multi-answers">
           {question.answers.map((answer, idx) => <div className="answer multi" onClick={this.selectMulti} key={question._id + idx} checked={false}>{answer}</div>)}  
@@ -115,17 +184,28 @@ class Survey extends React.Component {
     )
   }
 
-  singleFactory(question) {
+  singleFactory(question, i) {
     return (
-      <div className="survey-question" aria-label="single" key={question._id}>
-        <label className="question-content">
-          {question.content}
-        </label>
+      <div
+        className={this.classNamer(i)}
+        aria-label="single"
+        key={question._id}
+      >
+        <label className="question-content">{question.content}</label>
         <div className="single-answers">
-          {question.answers.map((answer, idx) => <div className="answer single" onClick={this.selectSingle} key={question._id + idx} checked={false}>{answer}</div>)}  
+          {question.answers.map((answer, idx) => (
+            <div
+              className="answer single"
+              onClick={this.selectSingle}
+              key={question._id + idx}
+              checked={false}
+            >
+              {answer}
+            </div>
+          ))}
         </div>
       </div>
-    )
+    );
   }
 
   extractAnswers(answer) {
@@ -148,7 +228,9 @@ class Survey extends React.Component {
   async handleSubmit(e) {
     e.preventDefault();
 
-    var surveyNo = (await axios.get("/api/results/count")).data.length; // hits routes/api/results.js backend
+    // var surveyNo = (await axios.get("/api/results/count")).data.length; // hits routes/api/results.js backend
+    var surveyNo = (await this.props.resultCount()).data + 1; // hits results backend, collects last results number and adds one for the new result
+    // debugger
     console.log(surveyNo);
 
     const newResult = {
@@ -158,7 +240,7 @@ class Survey extends React.Component {
     };
 
     var questions = Array.from(
-      document.querySelectorAll('div[class="survey-question"]')
+      document.querySelectorAll('.survey-question')
     );
 
     var answers = [];
@@ -170,7 +252,6 @@ class Survey extends React.Component {
       // obj[key] = question.querySelectorAll(".answer")
       answers.push(obj);
     });
-
     // console.log(answers)
     if (answers.some(answer => {
       // console.log(answer)
@@ -205,11 +286,11 @@ class Survey extends React.Component {
     var analysisCounter = 0;
     answers.forEach((answer, idx) => {
       var analysis = ""
-      console.log(answer)
+      // console.log(answer)
       if (Object.keys(answer)[0] == "open") {
         analysis = this.analyzed[analysisCounter];
         analysisCounter++;
-        console.log(analysis)
+        // console.log(analysis)
       }
       // console.log(answer)
       const newAnswer = {
@@ -220,9 +301,11 @@ class Survey extends React.Component {
         resultNo: surveyNo,
       };
       newResult.answers.push(newAnswer);
-      return axios.post("/api/answers/new", newAnswer); //hits routes/api/answers.js backend
+      this.props.newAnswer(newAnswer)
+      // return axios.post("/api/answers/new", newAnswer); //hits routes/api/answers.js backend
     });
-    axios.post("/api/results/new", newResult); //hits routes/api/results.js backend
+    this.props.newResult(newResult);
+    // axios.post("/api/results/new", newResult); //hits routes/api/results.js backend
     localStorage.setItem("surveyNo", surveyNo)
     this.props.loadResults(surveyNo);
     // window.location.assign(window.location.href + "/results")
@@ -230,29 +313,38 @@ class Survey extends React.Component {
 
   render() {
     var survey = JSON.parse(localStorage.surveys)[this.props.match.params.id].questions || jsonQuestions
-    var htmlQuestions = survey.map(question => {
+    var htmlQuestions = survey.map((question, idx) => {
       switch (question.type) {
         case "binary":
-          return this.binaryFactory(question);
+          return this.binaryFactory(question, idx);
         case "open":
-          return this.openFactory(question);
+          return this.openFactory(question, idx);
         case "multi":
-          return this.multiFactory(question);
+          return this.multiFactory(question, idx);
         case "single":
-          return this.singleFactory(question);
+          return this.singleFactory(question, idx);
         default:
           console.log("error in switch survey.js");
       }
     })
-
+    this.questionCount = htmlQuestions.length;
     return (
       <div id="survey" className="survey">
         {htmlQuestions}
+        <div id="controls">
+          {/* <div id="previous">previous</div> */}
+          <div id="next" onClick={this.revealNext}>next</div>
+        </div>
         <input
         type="submit"
-        className="submit"
+        id="submit"
+        className="submit hidden"
         onClick={this.handleSubmit}
         ></input>
+        <div id="loading-bar-container">
+          <div id="loading-bar"></div>
+        </div>
+        <div></div>
       </div>
     );
   }

@@ -27,7 +27,7 @@ class SurveyIndex extends React.Component {
         <Link to={`/surveys/${survey.number}`}>Survey #{survey.number} by {survey.user}</Link>
       </div>
     ))
-    console.log(surveys)
+    // console.log(surveys)
     return (
       <div id="survey-index">
         SURVEY INDEX

@@ -19,7 +19,6 @@ router.get("/data/:result_no", (req, res) => {
 });
 
 router.post("/new", jsonParser, (req, res) => {
-  // console.log(req.body);
   const [number, user, answers] = [
     req.body.number,
     req.body.user,
@@ -30,7 +29,7 @@ router.post("/new", jsonParser, (req, res) => {
     user,
     answers,
   });
-  // console.log(newResult);
+  console.log(newResult);
   newResult
     .save()
     .then((result) => res.json(result))
@@ -38,8 +37,8 @@ router.post("/new", jsonParser, (req, res) => {
 });
 
 router.get("/count", (req, res) => {
-  Result.find()
-    .then(results => res.json({length: (results.map(res => res).length)}))
+  Result.find().sort({number: -1})
+    .then(results => res.json(results[0].number))
     .catch(err => res.status(404).json({ notripsfound: 'No trips found' }));  
 })
 

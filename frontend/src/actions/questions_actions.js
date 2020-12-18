@@ -12,8 +12,8 @@ export const getQuestions = () => {
   // debugger
   return APIUtil.getQuestions()
     .then(res => {
-      console.log(res)
       localStorage.setItem("questions", JSON.stringify(res.data))
+      console.log("questions updated in local storage")
       return
     })
     .catch(err => {
@@ -21,7 +21,7 @@ export const getQuestions = () => {
     })
 }
 
-export const makeQuestion = (data) => {
+export const newQuestion = (data) => {
   return APIUtil.newQuestion(data)
     .then((res) => {
       // debugger
