@@ -3,7 +3,7 @@
   flex-direction: column;
   width: 700px;
   margin: auto;
-  margin-top: 2rem;
+  /* margin-top: 400px; */
   padding: 20px;
   border-radius: 5px;
   /* background: whitesmoke;
@@ -150,15 +150,16 @@ textarea {
 
 #loading-bar-container {
   position: relative;
-  height: 30px;
-  width: 100%;
-  background: whitesmoke;
+  height: 10px;
+  width: 50%;
+  background: #2b59ed63;
   text-align: center;
   text-justify: auto;
-  color: white;
+  /* color: white; */
   border-radius: 5px;
-  margin-top: 100px;
-  margin-bottom: 200px;
+  margin: auto;
+  margin-top: 300px;
+  margin-bottom: 80px;
 }
 
 #loading-bar {
@@ -167,7 +168,13 @@ textarea {
   height: 100%;
   width: 1%;
   background: #2b59ed;
-  transition: width .75s;
+  transition: width .5s;
+}
+
+#loading-text {
+  margin-top: 10px;
+  font-size: 12px;
+  font-family: sans-serif;
 }
 
 .animate {
@@ -178,4 +185,18 @@ textarea {
 .other-input {
   height: 20px;
   width: 200px;
+}
+
+#banner {
+  position: relative;
+  height: 0px;
+  /* height: 100%; */
+  padding: 80px;
+  display: flex;
+  justify-content: center;
+}
+
+#banner > img {
+  max-height: 100%;
+  opacity: .15;
 }

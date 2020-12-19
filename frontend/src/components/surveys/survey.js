@@ -22,10 +22,30 @@ class Survey extends React.Component {
     this.regex = new RegExp("other", "gi");
   }
 
+  getAbsoluteHeight(el) {
+    // Get the DOM Node if you pass in a string
+    el = typeof el === "string" ? document.querySelector(el) : el;
+
+    var styles = window.getComputedStyle(el);
+    var margin = parseFloat(styles["marginTop"]) + parseFloat(styles["marginBottom"]);
+
+    return Math.ceil(el.offsetHeight + margin);
+  }
+
+  adjustBannerSize() {
+    let questionHeight = this.getAbsoluteHeight(this.activeQuestion);
+    let navbarHeight = this.getAbsoluteHeight(document.querySelector("#navbar"));
+    let surveyHeight = this.getAbsoluteHeight(document.querySelector("#survey"));
+    let adjust = navbarHeight + surveyHeight;
+    document.querySelector("#banner").style.height = `${window.innerHeight - adjust}px`;
+    console.log(adjust);
+  }
+
   componentDidMount() {
     this.activeQuestion = document.querySelectorAll(".survey-question")[0];
     let type = this.activeQuestion.ariaLabel;
     if (type == "multi" || type == "open") document.querySelector("#next").className = "";
+    this.adjustBannerSize()
   }
 
   check(question) {
@@ -47,12 +67,14 @@ class Survey extends React.Component {
       (this.answeredCount / this.questionCount) * 100
     );
     let loading = document.querySelector("#loading-bar");
+    let text = document.querySelector("#loading-text");
     loading.style.width = `${percentDone}%`;
     // loading.classList.toggle("animate");
     // setTimeout(() => {
     //   document.querySelector("#loading-bar").classList.toggle("animate")
     // }, 400);
-    // loading.innerText = `${percentDone}%`;
+    text.innerText = `${this.answeredCount + "/" + this.questionCount + " " + percentDone}%`;
+    window.scrollTo(0, 100000);
   }
 
   revealNext() {
@@ -73,19 +95,22 @@ class Survey extends React.Component {
 
     if (this.activeQuestionIdx !== this.questionCount) {
       this.activeQuestion = document.querySelectorAll(".survey-question")[this.activeQuestionIdx];
-      this.scrollHeight = this.scrollHeight + previous.scrollHeight;
+      // this.scrollHeight = this.scrollHeight + previous.scrollHeight;
+      this.scrollHeight = document.body.scrollHeight;
       this.activeQuestion.classList.toggle("unanswered");
-      window.scrollTo(0, this.scrollHeight + 10);
+      // window.scrollTo(0, this.scrollHeight + 10);
+      window.scrollTo(0, 10000);
+      console.log(this.scrollHeight)
     }
 
     let next = document.querySelector("#next");
     let type = this.activeQuestion.ariaLabel;
     if (type == "single" || type == "binary") {
-      next.className = "hidden"
+      next.className = "hidden";
     } else {
-      next.className = ""
+      next.className = "";
     }
-      
+
     this.answeredCount = this.answeredCount + 1;
     this.loading();
   }
@@ -125,7 +150,8 @@ class Survey extends React.Component {
     let target = e.target.parentElement;
     target.checked = !target.checked;
     target.classList.toggle("selected");
-    if (e.target.parentElement.classList.value.match(/single/gi)) this.revealNext();
+    if (e.target.parentElement.classList.value.match(/single/gi))
+      this.revealNext();
   }
 
   makeOther(target) {
@@ -177,12 +203,16 @@ class Survey extends React.Component {
   selectSingle(e) {
     e.preventDefault();
     document.querySelector("#next").classList.add("hidden");
-    if (e.currentTarget.innerText.match(/other/gi) && !e.target.querySelector("input")) {
+    if (
+      e.currentTarget.innerText.match(/other/gi) &&
+      !e.target.querySelector("input")
+    ) {
       e.target.appendChild(this.makeOther());
       return;
     }
 
-    if (e.currentTarget.innerText.match(/other/gi && !e.currentTarget.checked)) return;
+    if (e.currentTarget.innerText.match(/other/gi && !e.currentTarget.checked))
+      return;
 
     let parent = e.currentTarget.parentElement;
     let children = parent.children;
@@ -426,6 +456,9 @@ class Survey extends React.Component {
     this.questionCount = htmlQuestions.length;
     return (
       <div id="survey" className="survey">
+        <div id="banner">
+          <img src="https://www.thisiscolossal.com/wp-content/uploads/2018/11/BenjaminZimmermann_07.gif"></img>
+        </div>
         {htmlQuestions}
         <div id="controls">
           {/* <div id="previous">previous</div> */}
@@ -441,6 +474,7 @@ class Survey extends React.Component {
         ></input>
         <div id="loading-bar-container">
           <div id="loading-bar"></div>
+          <div id="loading-text"></div>
         </div>
         <div></div>
       </div>
