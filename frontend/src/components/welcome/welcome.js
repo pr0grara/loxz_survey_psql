@@ -41,7 +41,7 @@ class Welcome extends React.Component {
             <Button>proceed</Button>{" "}
           </Link>
         </div>
-        <footer>Ara Baghdassarian 12/17/2020</footer>
+        <footer>Ara Baghdassarian 12/18/2020</footer>
       </>
     );
   }
