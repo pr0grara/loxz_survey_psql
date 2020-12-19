@@ -174,3 +174,8 @@ textarea {
   transform: translateX(20px);
   /* box-shadow: 0 1px 10px #2b59ed; */
 }
+
+.other-input {
+  height: 20px;
+  width: 200px;
+}
