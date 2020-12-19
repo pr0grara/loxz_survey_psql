@@ -73,7 +73,7 @@ class Survey extends React.Component {
     // setTimeout(() => {
     //   document.querySelector("#loading-bar").classList.toggle("animate")
     // }, 400);
-    text.innerText = `${this.answeredCount + "/" + this.questionCount + " " + percentDone}%`;
+    text.innerText = `${this.answeredCount + "/" + this.questionCount + "     " + percentDone}%`;
     window.scrollTo(0, 100000);
   }
 
@@ -95,12 +95,12 @@ class Survey extends React.Component {
 
     if (this.activeQuestionIdx !== this.questionCount) {
       this.activeQuestion = document.querySelectorAll(".survey-question")[this.activeQuestionIdx];
-      // this.scrollHeight = this.scrollHeight + previous.scrollHeight;
-      this.scrollHeight = document.body.scrollHeight;
       this.activeQuestion.classList.toggle("unanswered");
+      // this.activeQuestion.style.opacity = "1";
+      // this.scrollHeight = this.scrollHeight + previous.scrollHeight;
+      // this.scrollHeight = document.body.scrollHeight;
       // window.scrollTo(0, this.scrollHeight + 10);
-      window.scrollTo(0, 10000);
-      console.log(this.scrollHeight)
+
     }
 
     let next = document.querySelector("#next");
@@ -150,8 +150,7 @@ class Survey extends React.Component {
     let target = e.target.parentElement;
     target.checked = !target.checked;
     target.classList.toggle("selected");
-    if (e.target.parentElement.classList.value.match(/single/gi))
-      this.revealNext();
+    if (e.target.parentElement.classList.value.match(/single/gi)) this.revealNext();
   }
 
   makeOther(target) {
@@ -266,7 +265,9 @@ class Survey extends React.Component {
     return (
       <div className={this.classNamer(i)} aria-label="open" key={question._id}>
         <label className="question-content">{question.content}</label>
-        <textarea className="answer open" />
+        <div className="open-answer">
+          <textarea className="answer open" />
+        </div>
       </div>
     );
   }
