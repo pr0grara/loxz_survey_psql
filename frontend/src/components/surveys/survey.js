@@ -66,7 +66,7 @@ class Survey extends React.Component {
     let surveyHeight = this.getAbsoluteHeight(document.querySelector("#survey"));
     let adjust = navbarHeight + surveyHeight;
     document.querySelector("#banner").style.height = `${window.innerHeight - adjust}px`;
-    console.log(adjust);
+    // console.log(adjust);
   }
 
   funcA(e) {
@@ -130,7 +130,7 @@ class Survey extends React.Component {
     // if (this.activeQuestionIdx == this.questionCount) {
     //   this.activeQuestionIdx = this.activeQuestionIdx - 1;
     // }
-    console.log(this.activeQuestionIdx);
+    // console.log(this.activeQuestionIdx);
     // let previous = document.querySelectorAll(".survey-question")[this.activeQuestionIdx];
     let previous = this.activeQuestion;
     this.activeQuestionIdx = this.activeQuestionIdx - 1;
