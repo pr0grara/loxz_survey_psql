@@ -13,3 +13,9 @@ const QuestionSchema = new Schema({
 const Question = mongoose.model("questions", QuestionSchema);
 
 module.exports = Question;
+
+//QUESTION TYPES:
+//binary
+//open
+//single answer
+//multiple answers

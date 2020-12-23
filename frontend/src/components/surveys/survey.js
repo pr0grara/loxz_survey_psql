@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import alert from 'alert';
 import jsonQuestions from './2';
+// import * as SurveyHelper from '../../util/html/survey_html_util.jsx';
 
 class Survey extends React.Component {
   constructor(props) {
@@ -16,10 +17,38 @@ class Survey extends React.Component {
     this.selectBinary = this.selectBinary.bind(this);
     this.selectMulti = this.selectMulti.bind(this);
     this.revealNext = this.revealNext.bind(this);
+    this.revealPrevious = this.revealPrevious.bind(this);
+    this.routeKeyPress = this.routeKeyPress.bind(this);
+    this.routeWheelEvent = this.routeWheelEvent.bind(this);
+    this.funcA = this.funcA.bind(this);
+    this.funcB = this.funcB.bind(this);
     this.questionCount = 0;
-    this.answeredCount = 0;
-    this.scrollHeight = 0;
+    this.answeredCount = 1;
     this.regex = new RegExp("other", "gi");
+  }
+
+  routeKeyPress(e) {
+    if (!e) return;
+    switch (e.key) {
+      case "ArrowUp":
+        // if (this.activeQuestionIdx - 1 == 0) return
+        this.revealPrevious();
+        break
+      case "ArrowDown":
+        this.revealNext();
+        break
+      case "Enter":
+        this.revealNext();
+    }
+  }
+
+  routeWheelEvent(e) {
+    if (!e) return;
+    if (e.deltaY > 0) {
+      this.revealNext("wheel");
+    } else {
+      this.revealPrevious();
+    }
   }
 
   getAbsoluteHeight(el) {
@@ -33,7 +62,6 @@ class Survey extends React.Component {
   }
 
   adjustBannerSize() {
-    let questionHeight = this.getAbsoluteHeight(this.activeQuestion);
     let navbarHeight = this.getAbsoluteHeight(document.querySelector("#navbar"));
     let surveyHeight = this.getAbsoluteHeight(document.querySelector("#survey"));
     let adjust = navbarHeight + surveyHeight;
@@ -41,11 +69,28 @@ class Survey extends React.Component {
     console.log(adjust);
   }
 
+  funcA(e) {
+    this.routeKeyPress(e)
+  }
+
+  funcB(e) {
+    this.routeWheelEvent(e)
+  }
+
   componentDidMount() {
+    this.answeredCount = 1;
     this.activeQuestion = document.querySelectorAll(".survey-question")[0];
     let type = this.activeQuestion.ariaLabel;
     if (type == "multi" || type == "open") document.querySelector("#next").className = "";
     this.adjustBannerSize()
+    window.addEventListener("keydown", this.funcA);
+    window.addEventListener("wheel", this.funcB);
+  }
+
+  componentWillUnmount() {
+    this.answeredCount = 1;
+    window.removeEventListener("keydown", this.funcA);
+    window.removeEventListener("wheel", this.funcB);
   }
 
   check(question) {
@@ -73,50 +118,73 @@ class Survey extends React.Component {
     // setTimeout(() => {
     //   document.querySelector("#loading-bar").classList.toggle("animate")
     // }, 400);
-    text.innerText = `${this.answeredCount + "/" + this.questionCount + "     " + percentDone}%`;
-    window.scrollTo(0, 100000);
+    text.innerText = `${this.answeredCount + "/" + this.questionCount + " " + percentDone}%`;
+    this.activeQuestion.scrollIntoView(true);
   }
 
-  revealNext() {
+  revealPrevious(e) {
+    if (this.activeQuestionIdx == 0) {
+      document.querySelector("#navbar").scrollIntoView();
+      return
+    }
+    // if (this.activeQuestionIdx == this.questionCount) {
+    //   this.activeQuestionIdx = this.activeQuestionIdx - 1;
+    // }
+    console.log(this.activeQuestionIdx);
+    // let previous = document.querySelectorAll(".survey-question")[this.activeQuestionIdx];
+    let previous = this.activeQuestion;
+    this.activeQuestionIdx = this.activeQuestionIdx - 1;
+    this.activeQuestion = document.querySelectorAll(".survey-question")[this.activeQuestionIdx];
+    previous.classList.toggle("answered");
+    this.activeQuestion.classList.toggle("answered");
+    this.activeQuestion.scrollIntoView(true);
+  }
+
+  revealNext(string) {
+    console.log(this.activeQuestionIdx, this.answeredCount)
+    if (this.activeQuestionIdx + 1 == this.questionCount) return;
+    if (this.activeQuestionIdx == this.questionCount) return;
+    // if (this.activeQuestionIdx == this.questionCount && this.answeredCount < this.questionCount) {
+    //   debugger;
+    //   this.answeredCount = this.answeredCount + 1;
+    //   this.loading();
+    // }
     let previous = document.querySelectorAll(".survey-question")[this.activeQuestionIdx];
     if (!previous) return;
     if (this.check(previous)) {
+      if (string == "wheel") return
       alert("please answer");
       return;
     }
 
-    if (this.activeQuestionIdx + 2 == this.questionCount) {
+    if (this.activeQuestionIdx + 2 == this.questionCount && this.answeredCount !== this.questionCount) {
       document.querySelector("#submit").classList.toggle("hidden");
-      document.querySelector("#next").classList.toggle("hidden");
+      // document.querySelector("#next").classList.toggle("hidden");
     }
 
     this.activeQuestionIdx = this.activeQuestionIdx + 1;
     previous.classList.toggle("answered");
-
     if (this.activeQuestionIdx !== this.questionCount) {
       this.activeQuestion = document.querySelectorAll(".survey-question")[this.activeQuestionIdx];
-      this.activeQuestion.classList.toggle("unanswered");
-      // this.activeQuestion.style.opacity = "1";
-      // this.scrollHeight = this.scrollHeight + previous.scrollHeight;
-      // this.scrollHeight = document.body.scrollHeight;
-      // window.scrollTo(0, this.scrollHeight + 10);
-
+      if (this.activeQuestion.classList.value.match(/unanswered/gi)) {
+        this.activeQuestion.classList.toggle("unanswered")
+        this.answeredCount = this.answeredCount + 1;
+      } else {
+        this.activeQuestion.classList.toggle("answered")
+      }
     }
-
-    let next = document.querySelector("#next");
-    let type = this.activeQuestion.ariaLabel;
-    if (type == "single" || type == "binary") {
-      next.className = "hidden";
-    } else {
-      next.className = "";
-    }
-
-    this.answeredCount = this.answeredCount + 1;
+    // let next = document.querySelector("#next");
+    // let type = this.activeQuestion.ariaLabel;
+    // if (type == "single" || type == "binary") {
+    //   next.className = "hidden";
+    // } else {
+    //   next.className = "";
+    // }
     this.loading();
   }
 
   nextButton() {
-    document.querySelector("#next").classList.toggle("hidden");
+    // document.querySelector("#next").classList.toggle("hidden");
   }
 
   async analyzeThis(answer) {
@@ -150,12 +218,15 @@ class Survey extends React.Component {
     let target = e.target.parentElement;
     target.checked = !target.checked;
     target.classList.toggle("selected");
-    if (e.target.parentElement.classList.value.match(/single/gi)) this.revealNext();
+    // if (e.target.parentElement.classList.value.match(/single/gi)) this.revealNext();
+    this.revealNext();
   }
 
   makeOther(target) {
+    if (target.children.length > 0) return false;
     let other = document.createElement("input");
     other.classList.add("other-input");
+    other.autofocus = true;
     other.addEventListener("keydown", (e) => {
       this.otherSelect(e);
     });
@@ -189,11 +260,11 @@ class Survey extends React.Component {
 
   selectMulti(e) {
     e.preventDefault();
-    document.querySelector("#next").classList.remove("hidden");
+    // document.querySelector("#next").classList.remove("hidden");
     if (e.target.classList == "other-input") return;
     if (e.target.innerText.match(/other/gi)) {
-      e.target.appendChild(this.makeOther(e.target));
-      return;
+      let other = this.makeOther(e.target);
+      other ? e.target.appendChild(other) : null;
     }
     e.currentTarget.checked = !e.target.checked;
     e.currentTarget.classList.toggle("selected");
@@ -201,7 +272,7 @@ class Survey extends React.Component {
 
   selectSingle(e) {
     e.preventDefault();
-    document.querySelector("#next").classList.add("hidden");
+    // document.querySelector("#next").classList.add("hidden");
     if (
       e.currentTarget.innerText.match(/other/gi) &&
       !e.target.querySelector("input")
@@ -260,13 +331,16 @@ class Survey extends React.Component {
       </div>
     );
   }
+  // binaryFactory(question, i) {
+  //   return SurveyHelper.binaryFactory(question, i);
+  // }
 
   openFactory(question, i) {
     return (
       <div className={this.classNamer(i)} aria-label="open" key={question._id}>
         <label className="question-content">{question.content}</label>
         <div className="open-answer">
-          <textarea className="answer open" />
+          <input className="answer open" />
         </div>
       </div>
     );
@@ -458,13 +532,24 @@ class Survey extends React.Component {
     return (
       <div id="survey" className="survey">
         <div id="banner">
+          <div>dopamine-inducing graphics here ;)</div>
           <img src="https://www.thisiscolossal.com/wp-content/uploads/2018/11/BenjaminZimmermann_07.gif"></img>
         </div>
         {htmlQuestions}
         <div id="controls">
-          {/* <div id="previous">previous</div> */}
-          <div id="next" className="hidden" onClick={this.revealNext}>
-            next
+          <div id="previous-container">
+            <div>upkey or</div>
+            <div>scroll up</div>
+            <div id="previous" className="" onClick={this.revealPrevious}>
+              <img src="https://www.flaticon.com/premium-icon/icons/svg/2791/2791713.svg"></img>
+            </div>
+          </div>
+          <div id="next-container">
+            <div id="next" className=" answer" onClick={this.revealNext}>
+              <img src="https://www.flaticon.com/premium-icon/icons/svg/2791/2791713.svg"></img>
+            </div>
+            <div>downkey or</div>
+            <div>scroll down</div>
           </div>
         </div>
         <input
@@ -477,7 +562,7 @@ class Survey extends React.Component {
           <div id="loading-bar"></div>
           <div id="loading-text"></div>
         </div>
-        <div></div>
+        {/* <input></input> */}
       </div>
     );
   }
