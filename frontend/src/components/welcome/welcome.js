@@ -8,6 +8,13 @@ class Welcome extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    // this.hideNavBar();
+  }
+
+  hideNavBar() {
+    let nav = document.querySelector("#navbar");
+    if (!nav) return;
+    nav.style.display = "none";
   }
 
   handleSubmit(e) {
@@ -17,7 +24,7 @@ class Welcome extends React.Component {
   render() {
     return (
       <>
-        <div className="welcome-page">
+        <div className="welcome-page col-12">
           <div className="header">Welcome to LOXZ's survey HUB</div>
           <div className="paragraph">
             The main purpose of this software is to build out LOXZ's

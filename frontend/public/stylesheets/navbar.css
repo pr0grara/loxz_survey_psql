@@ -1,7 +1,7 @@
 #navbar {
   margin-bottom: 20px;
-  display: flex;
-  height: 40px;
+  display: none;
+  height: 50px;
   justify-content: space-evenly;
   align-items: center;
   background: whitesmoke;

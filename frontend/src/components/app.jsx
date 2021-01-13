@@ -13,7 +13,7 @@ import NavBar from "./navbar/navbar";
 
 const App = () => {
   return (
-    <div id="app">
+    <div id="app" className="row">
       <NavBar />
       <Route exact path='/' component={WelcomeContainer} />
       <Switch>

@@ -24,25 +24,38 @@ class Survey extends React.Component {
     this.funcB = this.funcB.bind(this);
     this.questionCount = 0;
     this.answeredCount = 1;
+    this.questionContent = "question-content col-10"
     this.regex = new RegExp("other", "gi");
+    // this.hideNavBar();
+  }
+
+  hideNavBar() {
+    let nav = document.querySelector("#navbar");
+    if (!nav) return;
+    nav.style.display = "none";
   }
 
   routeKeyPress(e) {
     if (!e) return;
     switch (e.key) {
       case "ArrowUp":
+        e.preventDefault();
         // if (this.activeQuestionIdx - 1 == 0) return
         this.revealPrevious();
         break
       case "ArrowDown":
+        e.preventDefault();
         this.revealNext();
         break
       case "Enter":
+        e.preventDefault();
         this.revealNext();
+        break
     }
   }
 
   routeWheelEvent(e) {
+    return
     if (!e) return;
     if (e.deltaY > 0) {
       this.revealNext("wheel");
@@ -108,9 +121,7 @@ class Survey extends React.Component {
   }
 
   async loading() {
-    let percentDone = Math.ceil(
-      (this.answeredCount / this.questionCount) * 100
-    );
+    let percentDone = Math.ceil((this.answeredCount / this.questionCount) * 100);
     let loading = document.querySelector("#loading-bar");
     let text = document.querySelector("#loading-text");
     loading.style.width = `${percentDone}%`;
@@ -119,7 +130,7 @@ class Survey extends React.Component {
     //   document.querySelector("#loading-bar").classList.toggle("animate")
     // }, 400);
     text.innerText = `${this.answeredCount + "/" + this.questionCount + " " + percentDone}%`;
-    this.activeQuestion.scrollIntoView(true);
+    this.activeQuestion.scrollIntoView();
   }
 
   revealPrevious(e) {
@@ -301,7 +312,7 @@ class Survey extends React.Component {
   }
 
   classNamer(i) {
-    return i == 0 ? "survey-question" : "survey-question unanswered";
+    return i == 0 ? "survey-question col-10" : "survey-question unanswered col-10";
   }
 
   binaryFactory(question, i) {
@@ -311,7 +322,7 @@ class Survey extends React.Component {
         aria-label="binary"
         key={question._id}
       >
-        <label className="question-content">{question.content}</label>
+        <label className={this.questionContent} >{question.content}</label>
         <div className="binary-answers">
           <div
             className="answer binary"
@@ -338,7 +349,7 @@ class Survey extends React.Component {
   openFactory(question, i) {
     return (
       <div className={this.classNamer(i)} aria-label="open" key={question._id}>
-        <label className="question-content">{question.content}</label>
+        <label className={this.questionContent}>{question.content}</label>
         <div className="open-answer">
           <input className="answer open" />
         </div>
@@ -349,7 +360,7 @@ class Survey extends React.Component {
   multiFactory(question, i) {
     return (
       <div className={this.classNamer(i)} aria-label="multi" key={question._id}>
-        <label className="question-content">
+        <label className={this.questionContent}>
           {question.content}
           <div style={{ fontSize: "small", marginTop: "10px" }}>
             (select all that apply)
@@ -378,7 +389,7 @@ class Survey extends React.Component {
         aria-label="single"
         key={question._id}
       >
-        <label className="question-content">{question.content}</label>
+        <label className={this.questionContent}>{question.content}</label>
         <div className="single-answers">
           {question.answers.map((answer, idx) => (
             <div
@@ -530,16 +541,15 @@ class Survey extends React.Component {
     });
     this.questionCount = htmlQuestions.length;
     return (
-      <div id="survey" className="survey">
-        <div id="banner">
-          <div>dopamine-inducing graphics here ;)</div>
+      <div id="survey" className="survey row">
+        <div id="banner" className="row">
           <img src="https://www.thisiscolossal.com/wp-content/uploads/2018/11/BenjaminZimmermann_07.gif"></img>
         </div>
         {htmlQuestions}
-        <div id="controls">
+        <div id="controls" className="col-2">
           <div id="previous-container">
-            <div>upkey or</div>
-            <div>scroll up</div>
+            {/* <div>upkey or</div>
+            <div>scroll up</div> */}
             <div id="previous" className="" onClick={this.revealPrevious}>
               <img src="https://www.flaticon.com/premium-icon/icons/svg/2791/2791713.svg"></img>
             </div>
@@ -548,8 +558,8 @@ class Survey extends React.Component {
             <div id="next" className=" answer" onClick={this.revealNext}>
               <img src="https://www.flaticon.com/premium-icon/icons/svg/2791/2791713.svg"></img>
             </div>
-            <div>downkey or</div>
-            <div>scroll down</div>
+            {/* <div>downkey or</div>
+            <div>scroll down</div> */}
           </div>
         </div>
         <input

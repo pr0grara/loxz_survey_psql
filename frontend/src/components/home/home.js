@@ -9,6 +9,13 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.activateNavBar();
+  }
+
+  activateNavBar() {
+    let nav = document.querySelector("#navbar");
+    if (!nav) return;
+    nav.style.display = "flex";
   }
 
   componentDidMount() {
@@ -53,16 +60,16 @@ class Home extends React.Component {
     return (
       <div id="home">
         <div id="navigation">
-          <Link to="/questions/new">
+          <Link to="/questions/new" className="col-3">
             <Button onMouseOver={this.hover} onMouseOut={this.clear} name="make question">Create New Questions</Button>{" "}
           </Link>
-          <Link to="/surveys">
+          <Link to="/surveys" className="col-3">
             <Button onMouseOver={this.hover} onMouseOut={this.clear} name="take">Take a Survey</Button>{" "}
           </Link>
           {/* <Link to="/survey/results">
             <Button>Results</Button>{" "}
           </Link> */}
-          <Link to="/survey/new">
+          <Link to="/survey/new" className="col-3">
             <Button onMouseOver={this.hover} onMouseOut={this.clear} name="make survey">Create New Survey</Button>{" "}
           </Link>
         </div>
