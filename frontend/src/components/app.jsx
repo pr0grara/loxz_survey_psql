@@ -1,6 +1,6 @@
 import React, { useReducer, useState, useEffect } from "react";
-// import { AuthRoute, ProtectedRoute } from '../util/route_util'
 import { Switch, Route, Link } from 'react-router-dom';
+import { AuthRoute, ProtectedRoute } from '../util/route_util'
 import QuestionIndexContainer from "./question/question_index";
 import QuestionFactoryContainer from "./question/question_factory_container";
 import SurveyContainer from "./surveys/survey_container";
@@ -17,13 +17,13 @@ const App = () => {
       <NavBar />
       <Route exact path='/' component={WelcomeContainer} />
       <Switch>
-        <Route exact path='/home' component={HomeContainer} />
-        <Route exact path='/questions' component={QuestionIndexContainer} />
-        <Route exact path='/questions/new' component={QuestionFactoryContainer} />
-        <Route exact path='/surveys' component={SurveyIndexContainer} />
-        <Route exact path='/surveys/:id' component={SurveyContainer} />
-        <Route exact path='/survey/new' component={SurveyFactoryContainer} />
-        <Route exact path='/survey/results' component={ResultsContainer} />
+        <ProtectedRoute exact path='/home' component={HomeContainer} />
+        <ProtectedRoute exact path='/questions' component={QuestionIndexContainer} />
+        <ProtectedRoute exact path='/questions/new' component={QuestionFactoryContainer} />
+        <ProtectedRoute exact path='/surveys' component={SurveyIndexContainer} />
+        <ProtectedRoute exact path='/surveys/:id' component={SurveyContainer} />
+        <ProtectedRoute exact path='/survey/new' component={SurveyFactoryContainer} />
+        <ProtectedRoute exact path='/survey/results' component={ResultsContainer} />
       </Switch>
     </div>
   );

@@ -13,7 +13,7 @@ export const gatherSurvey = (id) => {
     .then((survey) => {
       // console.log(survey.data)
       if (survey.data) {
-        localStorage.setItem("survey", JSON.stringify(survey.data.questions));
+          localStorage.setItem("survey", JSON.stringify(survey.data.questions));
       }
       window.location.reload();
       // window.location.assign("https://loxz-survey.herokuapp.com/#/survey/results")
@@ -26,7 +26,7 @@ export const gatherSurvey = (id) => {
 export const getSurveys = () => {
   return APIUtil.getSurveys()
     .then(surveys => {
-      localStorage.setItem("surveys", JSON.stringify(surveys.data))
+        localStorage.setItem("surveys", JSON.stringify(surveys.data))
       return
     })
     .catch(err => console.log(err))

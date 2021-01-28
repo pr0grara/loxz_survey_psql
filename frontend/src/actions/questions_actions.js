@@ -12,7 +12,7 @@ export const getQuestions = () => {
   // debugger
   return APIUtil.getQuestions()
     .then(res => {
-      localStorage.setItem("questions", JSON.stringify(res.data))
+        localStorage.setItem("questions", JSON.stringify(res.data))
       console.log("questions updated in local storage")
       return
     })

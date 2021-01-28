@@ -8,6 +8,7 @@ class Welcome extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.verify = this.verify.bind(this);
     // this.hideNavBar();
   }
 
@@ -19,6 +20,13 @@ class Welcome extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+  }
+
+  verify() {
+    let answer = prompt("password");
+    if (answer === "Marlowe88*") {
+      localStorage.setItem("isAuthenticated", true)
+    }
   }
 
   render() {
@@ -45,10 +53,10 @@ class Welcome extends React.Component {
             <li>storing/tracking answers, analysis and results</li>
           </ol>
           <Link to="/home">
-            <Button>proceed</Button>{" "}
+            <Button onClick={this.verify}>proceed</Button>{" "}
           </Link>
         </div>
-        <footer>Ara Baghdassarian 12/18/2020</footer>
+        <footer>Ara Baghdassarian 1/28/2020</footer>
       </>
     );
   }
