@@ -7,6 +7,7 @@ const mSTP = (state) => ({
 
 const mDTP = (dispatch) => ({
   getQuestions: () => getQuestions(),
+  
 });
 
 export default connect(mSTP, mDTP)(Welcome);
