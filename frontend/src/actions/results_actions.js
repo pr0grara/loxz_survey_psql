@@ -26,11 +26,10 @@ export const gatherResult = (id) => {
     .then((result) => {
       // console.log(result.data)
       if (result.data) {
-        // debugger
           localStorage.setItem("result", JSON.stringify(result.data.answers));
-          window.location.assign("https://loxz-survey.herokuapp.com/#/survey/results")
-          // window.location.assign("http://localhost:3000/#/survey/results")
-      }
+        }
+        window.location.assign("https://loxz-survey.herokuapp.com/#/survey/results")
+        // window.location.assign("http://localhost:3000/#/survey/results")
       // dispatch(receiveResult(result))
     })
     .catch((err) => console.log(err));

@@ -14,7 +14,7 @@ class Home extends React.Component {
 
   activateNavBar() {
     let nav = document.querySelector("#navbar");
-    if (!nav) return;
+    if (window.location.href.split("/").slice(-1)[0] !== "home" || !nav) return;
     nav.style.display = "flex";
   }
 

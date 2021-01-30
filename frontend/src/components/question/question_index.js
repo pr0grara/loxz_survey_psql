@@ -105,7 +105,7 @@ class QuestionIndex extends React.Component {
         <label className="question-content">{question.content}</label>
         <div className="single-answers">
           {question.answers.map((answer, idx) => (
-            <div className="answer single" key={question._id + idx.toString()} checked={false}>
+            <div className="answer single" key={question._id + idx} checked={false}>
               {answer}
             </div>
           ))}
@@ -114,6 +114,42 @@ class QuestionIndex extends React.Component {
       </div>
     );
   }
+
+  likertFactory(question) {
+    var likertAnswers = ["strongly agree", "agree", "neutral", "disagree", "strongly disagree"]
+
+    return (
+      <div className="survey-question" aria-label="single" key={question._id} data-number={question.number} onClick={this.selectQuestion}>
+        <label className="question-content">{question.content}</label>
+        <div className="single-answers">
+          {likertAnswers.map((answer, idx) => (
+            <div className="answer single" key={question._id + idx} checked={false}>
+              {answer}
+            </div>
+          ))}
+        </div>
+        {this.trashIcon()}
+      </div>
+    );
+  }
+
+  // likertFactory(question) {
+  //   var likertAnswers = ["strongly agree", "agree", "neutral", "disagree", "strongly disagree"]
+  //   console.log(likertAnswers)
+  //   return (
+  //     <div className="survey-question" aria-label="likert" key={question._id} data-number={question.number} onClick={this.selectQuestion}>
+  //       <label className="question-content">{question.content}</label>
+  //       <div className="likert-answers">
+  //         {likertAnswers.map((answer, idx) => {
+  //           <div className="answer likert" key={question._id + idx} checked={false}>
+  //             {answer}
+  //           </div>
+  //         })}
+  //       </div>
+  //       {this.trashIcon()}
+  //     </div>
+  //   )
+  // }
 
   render() {
     var htmlQuestions = JSON.parse(localStorage.questions).map((question) => {
@@ -126,6 +162,8 @@ class QuestionIndex extends React.Component {
           return this.multiFactory(question);
         case "single":
           return this.singleFactory(question);
+        case "likert":
+          return this.likertFactory(question);
         default:
           console.log("error in render function switch statement");
       }

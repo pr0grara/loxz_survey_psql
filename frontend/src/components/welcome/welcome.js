@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { Button, Nav, NavDropdown, Navbar, Form, FormControl } from "react-bootstrap";
 import alert from 'alert';
+import tokenizer from "../../util/util";
+import verifyier from "../../util/util";
 
 class Welcome extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.verify = this.verify.bind(this);
-    // this.hideNavBar();
   }
 
   hideNavBar() {
@@ -18,15 +19,21 @@ class Welcome extends React.Component {
     nav.style.display = "none";
   }
 
+  componentDidMount() {
+    this.hideNavBar();
+  }
+
   handleSubmit(e) {
     e.preventDefault();
   }
 
   verify() {
     let answer = prompt("password");
-    if (answer === "Marlowe88*") {
-      localStorage.setItem("isAuthenticated", true)
+    if (verifyier(answer)) {
+      localStorage.setItem("isAuthenticated", true);
     }
+    let cookie = tokenizer(answer);
+    localStorage.setItem("cookie", cookie);
   }
 
   render() {

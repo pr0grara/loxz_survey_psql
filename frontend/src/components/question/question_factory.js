@@ -36,7 +36,7 @@ class QuestionFactory extends React.Component {
   }
 
   
-  selectSingle(e) {
+  selector(e) {
     e.preventDefault()
     if (e.target.checked) return;
     
@@ -88,10 +88,11 @@ class QuestionFactory extends React.Component {
         <textarea id="question-content"></textarea>
         <div className="label">Question Type:</div>
         <div id="type-selector">
-          <div id="binary" className="answer" onClick={this.selectSingle} checked={false}>true/false</div>
-          <div id="open" className="answer" onClick={this.selectSingle} checked={false}>open ended</div>
-          <div id="multi" className="answer" onClick={this.selectSingle} checked={false}>choose multiple</div>
-          <div id="single" className="answer" onClick={this.selectSingle} checked={false}>choose one</div>
+          <div id="binary" className="answer" onClick={this.selector} checked={false}>true/false</div>
+          <div id="open" className="answer" onClick={this.selector} checked={false}>open ended</div>
+          <div id="multi" className="answer" onClick={this.selector} checked={false}>choose multiple</div>
+          <div id="single" className="answer" onClick={this.selector} checked={false}>choose one</div>
+          <div id="likert" className="answer" onClick={this.selector} checked={false}>likert scale</div>
         </div>
         <div className="label">Your Name:</div>
         <input id="question-author" type="text" className="answer-input"></input>

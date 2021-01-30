@@ -406,6 +406,32 @@ class Survey extends React.Component {
     );
   }
 
+  
+  likertFactory(question, i) {
+    var likertAnswers = ["strongly agree", "agree", "neutral", "disagree", "strongly disagree"]
+    return (
+      <div 
+      className={this.classNamer(i)}
+      aria-label="likert"
+      key={question._id}
+      >
+        <label className={this.questionContent}>{question.content}</label>
+        <div className="likert-answers">
+          {likertAnswers.map((answer, idx) => (
+            <div
+              className="answer likert"  
+              onClick={this.selectSingle}
+              key={question._id + idx}
+              checked={false}
+            >
+              {answer}
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
   extractAnswers(answer) {
     let key = Object.keys(answer)[0];
     let values = Object.values(answer)[0];
@@ -431,6 +457,9 @@ class Survey extends React.Component {
         } else {
           return single.innerText;
         }
+      case "likert":
+        let likert = values.filter((ans) => ans.checked)[0];
+        return likert.innerText;
     }
   }
 
@@ -535,8 +564,10 @@ class Survey extends React.Component {
           return this.multiFactory(question, idx);
         case "single":
           return this.singleFactory(question, idx);
+        case "likert":
+          return this.likertFactory(question, idx);
         default:
-          console.log("error in switch survey.js");
+          console.log("error in switch @ survey.js");
       }
     });
     this.questionCount = htmlQuestions.length;
@@ -572,7 +603,6 @@ class Survey extends React.Component {
           <div id="loading-bar"></div>
           <div id="loading-text"></div>
         </div>
-        {/* <input></input> */}
       </div>
     );
   }
