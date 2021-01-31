@@ -117,6 +117,12 @@ class Survey extends React.Component {
         return Array.from(answer).some((ans) => ans.checked) ? false : true;
       case "single":
         return Array.from(answer).some((ans) => ans.checked) ? false : true;
+      case "likert":
+        return Array.from(answer).some((ans) => ans.checked) ? false : true;
+      case "scale":
+        return Array.from(answer).some((ans) => ans.checked) ? false : true;
+      case "matrix":
+        return Array.from(answer).some((ans) => ans.checked) ? false : true;
     }
   }
 
@@ -432,6 +438,56 @@ class Survey extends React.Component {
     )
   }
 
+  scaleFactory(question, i) {
+    var scaleAnswers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+    return (
+      <div
+        className={this.classNamer(i)}
+        aria-label="scale"
+        key={question._id}
+      >
+        <label className={this.questionContent}>{question.content}</label>
+        <div className="scale-answers">
+          {scaleAnswers.map((answer, idx) => (
+            <div
+              className="answer scale"
+              onClick={this.selectSingle}
+              key={question._id + idx}
+              checked={false}
+            >
+              {answer}
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  matrixFactory(question, i) {
+    var matrixAnswers = ["1-Very Satisfied", "2-Somewhat Satisfied", "3-Neither satisfied nor dissatisfied", "4-Somewhat Dissatisfied", "5-Very Dissatisfied", "N/A"]
+    return (
+      <div
+        className={this.classNamer(i)}
+        aria-label="matrix"
+        key={question._id}
+      >
+        <label className={this.questionContent}>{question.content}</label>
+        <div className="matrix-answers">
+          {matrixAnswers.map((answer, idx) => (
+            <div
+              className="answer matrix"
+              onClick={this.selectSingle}
+              key={question._id + idx}
+              checked={false}
+            >
+              {answer}
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
   extractAnswers(answer) {
     let key = Object.keys(answer)[0];
     let values = Object.values(answer)[0];
@@ -460,6 +516,12 @@ class Survey extends React.Component {
       case "likert":
         let likert = values.filter((ans) => ans.checked)[0];
         return likert.innerText;
+      case "scale":
+        let scale = values.filter((ans) => ans.checked)[0];
+        return scale;
+      case "matrix":
+        let matrix = values.filter((ans) => ans.checked)[0];
+        return matrix;
     }
   }
 
@@ -566,6 +628,10 @@ class Survey extends React.Component {
           return this.singleFactory(question, idx);
         case "likert":
           return this.likertFactory(question, idx);
+        case "scale":
+          return this.scaleFactory(question, idx);
+        case "matrix":
+          return this.matrixFactory(question, idx);
         default:
           console.log("error in switch @ survey.js");
       }

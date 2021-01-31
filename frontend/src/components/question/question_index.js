@@ -119,11 +119,11 @@ class QuestionIndex extends React.Component {
     var likertAnswers = ["strongly agree", "agree", "neutral", "disagree", "strongly disagree"]
 
     return (
-      <div className="survey-question" aria-label="single" key={question._id} data-number={question.number} onClick={this.selectQuestion}>
+      <div className="survey-question" aria-label="likert" key={question._id} data-number={question.number} onClick={this.selectQuestion}>
         <label className="question-content">{question.content}</label>
-        <div className="single-answers">
+        <div className="likert-answers">
           {likertAnswers.map((answer, idx) => (
-            <div className="answer single" key={question._id + idx} checked={false}>
+            <div className="answer likert" key={question._id + idx} checked={false}>
               {answer}
             </div>
           ))}
@@ -133,23 +133,41 @@ class QuestionIndex extends React.Component {
     );
   }
 
-  // likertFactory(question) {
-  //   var likertAnswers = ["strongly agree", "agree", "neutral", "disagree", "strongly disagree"]
-  //   console.log(likertAnswers)
-  //   return (
-  //     <div className="survey-question" aria-label="likert" key={question._id} data-number={question.number} onClick={this.selectQuestion}>
-  //       <label className="question-content">{question.content}</label>
-  //       <div className="likert-answers">
-  //         {likertAnswers.map((answer, idx) => {
-  //           <div className="answer likert" key={question._id + idx} checked={false}>
-  //             {answer}
-  //           </div>
-  //         })}
-  //       </div>
-  //       {this.trashIcon()}
-  //     </div>
-  //   )
-  // }
+  scaleFactory(question) {
+    var scaleAnswers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+
+    return (
+      <div className="survey-question" aria-label="scale" key={question._id} data-number={question.number} onClick={this.selectQuestion}>
+        <label className="question-content">{question.content}</label>
+        <div className="scale-answers">
+          {scaleAnswers.map((answer, idx) => (
+            <div className="answer scale" key={question._id + idx} checked={false}>
+              {answer}
+            </div>
+          ))}
+        </div>
+        {this.trashIcon()}
+      </div>
+    );
+  }
+
+  matrixFactory(question) {
+    var matrixAnswers = ["1-Very Satisfied", "2-Somewhat Satisfied", "3-Neither satisfied nor dissatisfied", "4-Somewhat Dissatisfied", "5-Very Dissatisfied", "N/A"]
+
+    return (
+      <div className="survey-question" aria-label="matrix" key={question._id} data-number={question.number} onClick={this.selectQuestion}>
+        <label className="question-content">{question.content}</label>
+        <div className="matrix-answers">
+          {matrixAnswers.map((answer, idx) => (
+            <div className="answer matrix" key={question._id + idx} checked={false}>
+              {answer}
+            </div>
+          ))}
+        </div>
+        {this.trashIcon()}
+      </div>
+    );
+  }
 
   render() {
     var htmlQuestions = JSON.parse(localStorage.questions).map((question) => {
@@ -164,6 +182,10 @@ class QuestionIndex extends React.Component {
           return this.singleFactory(question);
         case "likert":
           return this.likertFactory(question);
+        case "scale":
+          return this.scaleFactory(question);
+        case "matrix":
+          return this.matrixFactory(question);
         default:
           console.log("error in render function switch statement");
       }

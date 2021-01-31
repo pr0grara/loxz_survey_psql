@@ -68,15 +68,7 @@ class QuestionFactory extends React.Component {
       addMore.id = "add-more-answers";
       addMore.onclick = addMoreAnswers;
       addMore.innerText = "+"
-
-      let shit = (
-        <div id="answers-array">
-          <input className="answer-input" type="text"></input>
-          <div id="add-more-answers">+</div>
-        </div>
-      )
       answers.append(addMore);
-      
     }
   }
 
@@ -93,6 +85,8 @@ class QuestionFactory extends React.Component {
           <div id="multi" className="answer" onClick={this.selector} checked={false}>choose multiple</div>
           <div id="single" className="answer" onClick={this.selector} checked={false}>choose one</div>
           <div id="likert" className="answer" onClick={this.selector} checked={false}>likert scale</div>
+          <div id="scale" className="answer" onClick={this.selector} checked={false}>1-10 scale</div>
+          <div id="matrix" className="answer" onClick={this.selector} checked={false}>matrix (1-5 satisfaction)</div>
         </div>
         <div className="label">Your Name:</div>
         <input id="question-author" type="text" className="answer-input"></input>
