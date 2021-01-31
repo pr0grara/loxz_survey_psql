@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect, withRouter } from 'react-router-dom';
+import { santasCookie } from './auth_util';
 
 // Passed in from parent component or from mapStateToProps
 const Auth = ({ component: Component, path, loggedIn, exact }) => (
@@ -30,10 +31,17 @@ const Protected = ({ component: Component, loggedIn, ...rest }) => (
 
 // Use the isAuthenitcated slice of state to determine whether a user is logged in
 
-const mapStateToProps = state => (
+const mapStateToProps = state => {
     // { loggedIn: state.session.isAuthenticated }
-    { loggedIn: localStorage.isAuthenticated }
-);
+    // return { loggedIn: localStorage.isAuthenticated }
+    let logged;
+    if (localStorage.cookie === santasCookie) {
+        logged = true;
+    } else {
+        logged = false;
+    }
+    return { loggedIn: logged }
+};
 
 export const AuthRoute = withRouter(connect(mapStateToProps)(Auth));
 

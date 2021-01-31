@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { Button, Nav, NavDropdown, Navbar, Form, FormControl } from "react-bootstrap";
 import alert from 'alert';
-import tokenizer from "../../util/util";
-import verifyier from "../../util/util";
+import { tokenizer, verifyier } from "../../util/auth_util";
+// import verifyier from "../../util/auth_util";
 
 class Welcome extends React.Component {
   constructor(props) {
@@ -29,10 +29,12 @@ class Welcome extends React.Component {
 
   verify() {
     let answer = prompt("password");
+    if (!answer) return;
     if (verifyier(answer)) {
       localStorage.setItem("isAuthenticated", true);
     }
     let cookie = tokenizer(answer);
+    // console.log(cookie);
     localStorage.setItem("cookie", cookie);
   }
 
