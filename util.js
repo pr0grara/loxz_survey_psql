@@ -21,7 +21,7 @@ var encrypt = function (string) {
 var encryptor = (string) => {
     let encryption = encrypt(string);
     encryption = encryption.toString();
-    // console.log(encryption)
+    // console.log(encryption) 
     // console.log(encryption.length)
     if (encryption.length % 2 !== 0) encryption = encryption+5;
     // console.log(encryption)
