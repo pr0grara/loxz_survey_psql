@@ -1,3 +1,4 @@
+const { ARRAY, DataTypes } = require('sequelize')
 // const { parse } = require("dotenv/types");
 
 // require("dotenv/config");
@@ -18,7 +19,7 @@ var encrypt = function (string) {
 }
 
 var encryptor = (string) => {
-    let encryption = encrypt("Marlowe88*");
+    let encryption = encrypt(string);
     encryption = encryption.toString();
     // console.log(encryption)
     // console.log(encryption.length)
@@ -38,4 +39,9 @@ var encryptor = (string) => {
     return cookie.join("");
 }
 
-encryptor("Marlowe88*")
+// encryptor("Marlowe88*")
+// console.log(Date());
+
+let arr = ["sdfsf", "sdfsf"]
+console.log(DataTypes.ARRAY(arr));
+// console.log(ARRAY)

@@ -17,7 +17,7 @@ router.get("/test", (req, res) => {
 });
 
 router.post('/new', jsonParser, (req, res) => {
-  // console.log(req.body)
+  console.log(req.body)
   const [user, question, content, resultNo, analysis] = [req.body.user, req.body.question, req.body.content, req.body.resultNo, req.body.analysis];
   const newAnswer = new Answer({
     user,
@@ -26,12 +26,13 @@ router.post('/new', jsonParser, (req, res) => {
     analysis,
     resultNo
   });
-  // console.log(newAnswer);
-  newAnswer
-    .save()
-    .then(answer => res.json(answer))
-    // .then(answer => console.log("saved????"))
-    .catch(err => console.log(err))
+
+  console.log(newAnswer);
+  // newAnswer
+  //   .save()
+  //   .then(answer => res.json(answer))
+  //   // .then(answer => console.log("saved????"))
+  //   .catch(err => console.log(err))
 })
 
 router.post('/analyze', jsonParser, (req, res) => {

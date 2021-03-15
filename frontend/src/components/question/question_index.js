@@ -45,7 +45,7 @@ class QuestionIndex extends React.Component {
 
   binaryFactory(question) {
     return (
-      <div className="survey-question" aria-label="binary" key={question._id} data-number={question.number} onClick={this.selectQuestion}>
+      <div className="survey-question" aria-label="binary" key={question.id} data-number={question.id} onClick={this.selectQuestion}>
         <label className="question-content">{question.content}</label>
         <div className="binary-answers">
           <div
@@ -171,7 +171,7 @@ class QuestionIndex extends React.Component {
 
   render() {
     var htmlQuestions = JSON.parse(localStorage.questions).map((question) => {
-      switch (question.type) {
+      switch (question.question_type) {
         case "binary":
           return this.binaryFactory(question);
         case "open":

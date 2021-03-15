@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "arabaghdassarian",
+    "password": null,
+    "database": "loxz_survey",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "arabaghdassarian",
+    "password": null,
+    "database": "loxz_survey_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "arabaghdassarian",
+    "password": null,
+    "database": "loxz_survey_pro",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

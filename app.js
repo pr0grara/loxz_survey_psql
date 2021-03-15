@@ -1,5 +1,5 @@
 require("dotenv").config();
-const mongoose = require("mongoose");
+const { Sequelize } = require("sequelize");
 const express = require('express');
 const bodyParser = require('body-parser');
 const answers = require('./routes/api/answers');
@@ -18,11 +18,14 @@ const path = require('path');
 
 const app = express();
 
-mongoose.connect(
-  process.env.MONGO_URI,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  console.log("connected to MongoDB")
-);
+const db = new Sequelize('postgres://arabaghdassarian:@localhost:5432/loxz_survey');
+
+try {
+  db.authenticate()
+    .then(console.log("succesfully connected to db"));
+} catch {
+  console.log("didn't work")
+}
 
 app.get("/", (req, res) => {
   app.use(express.static('frontend/dist'))

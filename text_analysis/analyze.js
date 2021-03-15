@@ -22,7 +22,7 @@ async function analyze(credentials, text) {
   );
 
   var aiAnalysis = {};
-  // aiAnalysis["sentiment"] = await sentimentAnalysis(textAnalyticsClient, text);
+  aiAnalysis["sentiment"] = await sentimentAnalysis(textAnalyticsClient, text);
   // await entityRecognition(textAnalyticsClient, text);
   // await linkedEntityRecognition(textAnalyticsClient, text);
   aiAnalysis["keyPhrases"] = await keyPhraseExtraction(textAnalyticsClient, text);
